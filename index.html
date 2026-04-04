@@ -1,19 +1,38 @@
-<!DOCTYPE html>
-<html lang="tr">
+​<!DOCTYPE html>
+​<html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <title>Spor-D-nyas - Derbi Haberi</title>
-    <style>
-        body { font-family: sans-serif; background-color: #f4f4f4; text-align: center; padding: 50px; }
-        .haber-kutusu { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); display: inline-block; max-width: 600px; }
-        h1 { color: #d32f2f; }
-        p { font-size: 18px; line-height: 1.6; }
-    </style>
+<meta charset="UTF-8">
+<title>Spor Dünyası | Derbi</title>
+<style>
+body { font-family: sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; padding: 20px; }
+.ana-kutu { background: white; padding: 30px; border-radius: 20px; max-width: 800px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+h1 { color: #1a1a1a; font-size: 28px; border-left: 6px solid #d32f2f; padding-left: 15px; margin-bottom: 20px; }
+.metin { font-size: 18px; line-height: 1.8; color: #333; margin-bottom: 25px; }
+.resim-alani { text-align: center; margin: 30px 0; background: #fafafa; padding: 15px; border-radius: 10px; }
+.haber-resmi { width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.kaynak-yazisi { font-size: 13px; color: #888; margin-top: 10px; font-style: italic; }
+.yorumlar { margin-top: 40px; padding-top: 20px; border-top: 2px solid #eee; }
+textarea { width: 100%; height: 80px; padding: 12px; border-radius: 8px; border: 1px solid #ccc; margin-top: 10px; resize: none; }
+button { background: #d32f2f; color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+</style>
 </head>
 <body>
-    <div class="haber-kutusu">
-        <h1>TS - GS DERBİSİ YARIN!</h1>
-        <p>Yarın saat 20.00'da Trabzonspor, Trendyol Süper Lig lideri Galatasaray'ı evinde ağırlayacak. Aslanların amacı puan farkını açık tutmak, Karadeniz ekibinin ise amacı ligdeki yerini korumak.</p>
-    </div>
+<div class="ana-kutu">
+<h1>GS'DE EKSİKLER CAN SIKIYOR! OKAN BURUK'UN TERCİHİ NE OLACAK?</h1>
+<div class="metin">
+Derbi için geri sayım başlamışken gözler kadrosunun en önemli oyuncularından Osimhen, Sara ve Sane'nin eksikliğinde Okan Buruk'un tercihleri ne olacağı konusunda. İşte tahmini ilk 11'ler:
+</div>
+<div class="resim-alani">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzzO0oZ-eyEXXH0YCR4dKMYYCPdTeZnRLAVg&s" class="haber-resmi">
+<p class="kaynak-yazisi">Kaynak: TRT Spor</p>
+</div>
+<div class="yorumlar">
+<h3>Yorum Yap</h3>
+<textarea placeholder="Sizce bu eksiklere rağmen skor ne olur?"></textarea>
+
+
+<button onclick="alert('Yorumunuz denetime gönderildi!')">Gönder</button>
+</div>
+</div>
 </body>
 </html>
