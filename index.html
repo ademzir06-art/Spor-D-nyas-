@@ -1,39 +1,84 @@
-[16:04, 05.04.2026] Yusuf Eymen: ​<!DOCTYPE html>
+<!DOCTYPE html>
 ​<html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spor Dünyası | Yusuf Eymen</title>
+<title>Spor Dünyası</title>
 <style>
-body { font-family: sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; display: flex; justify-content: center; }
-.ana-kutu { background: white; width: 100%; max-width: 700px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.15); overflow: hidden; }
-.tab-menu { display: flex; background: #1a1a1a; }
-.tab-button { flex: 1; padding: 15px; border: none; background: none; color: #bbb; cursor: pointer; font-weight: bold; transition: 0.3s; }
-.tab-button.active { background: #d32f2f; color: white; }
-.icerik { padding: 30px; display: none; }
-.icerik.active { display: block; }
-.skor-alani { background: #1a1a1a; color: #ffcc00; padding: 20px; border-radius: 10px; text-align: center; font-size: 26px; font-weight: bold; margin-bottom: 25px; border: 2px solid #333; }
-.kadro-liste { background: #fdfdfd; padding: 15px; border-radius: 8px; border-left: 5px solid #d32f2f; margin-bottom: 20px; line-height: 1.6; color: #333; }
-.yazar-bilgi { font-size: 13px; color: #777; margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px; text-align: right; }
-.arshiv-link { display: inline-block; margin-top: 20px; color: #d32f2f; text-decoration: none; font-weight: bold; font-size: 14px; }
+body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+.tab-butonlari { margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+.buton { padding: 10px 20px; cursor: pointer; border: 1px solid #ccc; background: #f0f0f0; margin-right: 5px; }
+.buton.aktif { background: #ddd; font-weight: bold; }
+.sayfa { display: none; }
+.sayfa.aktif { display: block; }
+table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+th, td { border: 1px solid #000; padding: 8px; text-align: center; }
+.imza { margin-top: 30px; text-align: right; font-weight: bold; }
 </style>
 </head>
 <body>
-​<div class="ana-kutu">
-<div class="tab-menu">
-<button class="tab-button active" onclick="tabAc(event, 'haber')">MAÇ SONUCU</button>
-<button class="tab-button" onclick="tabAc(event, 'kadrolar')">İLK 11'LER</button>
+​<div class="tab-butonlari">
+<button class="buton aktif" onclick="sayfaDegistir(event, 's1')">1. Sayfa</button>
+<button class="buton" onclick="sayfaDegistir(event, 's2')">2. Sayfa</button>
 </div>
-[16:05, 05.04.2026] Yusuf Eymen: </div>
+​<div id="s1" class="sayfa aktif">
+<h1>DEV DERBİNİN KAZANANI FENERBAHÇE!</h1>
+<p>Süperlig 28.haftasında Chobani stadyumunda oynanan maçta Fenerbahçe puanı kazandı, bu 3 puan Fenerbahçe için çok önemliyken aynı zamanda Beşiktaş için de çok önemliydi. Maç sonu detaylar arka sayfada</p>
+[00:03, 06.04.2026] Yusuf Eymen: </div>
+​<div id="p2" class="sayfa-icerik">
+<h2>Süperlig Puan Durumu</h2>
+<table>
+<thead>
+<tr>
+<th>Sıra</th>
+<th>Takım</th>
+<th>O</th>
+<th>G</th>
+<th>B</th>
+<th>M</th>
+<th>AG</th>
+<th>YG</th>
+<th>AV</th>
+<th>P</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Galatasaray</td><td>27</td><td>20</td><td>4</td><td>3</td><td>63</td><td>20</td><td>43</td><td>64</td></tr>
+<tr><td>2</td><td>Fenerbahçe</td><td>28</td><td>18</td><td>9</td><td>1</td><td>62</td><td>28</td><td>34</td><td>63</td></tr>
+<tr><td>3</td><td>Trabzonspor</td><td>28</td><td>19</td><td>6</td><td>3</td><td>55</td><td>30</td><td>25</td><td>63</td></tr>
+<tr><td>4</td><td>Beşiktaş</td><td>28</td><td>15</td><td>7</td><td>6</td><td>49</td><td>32</td><td>17</td><td>52</td></tr>
+<tr><td>5</td><td>Göztepe</td><td>27</td><td>12</td><td>10</td><td>5</td><td>32</td><td>20</td><td>12</td><td>46</td></tr>
+<tr><td>6</td><td>Başakşehir</td><td>27</td><td>12</td><td>7</td><td>8</td><td>44</td><td>30</td><td>14</td><td>43</td></tr>
+<tr><td>7</td><td>Samsunspor</td><td>27</td><td>8</td><td>12</td><td>7</td><td>31</td><td>33</td><td>-2</td><td>36</td></tr>
+<tr><td>8</td><td>Gaziantep FK</td><td>28</td><td>8</td><td>10</td><td>10</td><td>37</td><td>47</td><td>-10</td><td>34</td></tr>
+<tr><td>9</td><td>Kocaelispor</td><td>27</td><td>9</td><td>6</td><td>12</td><td>23</td><td>32</td><td>-9</td><td>33</td></tr>
+<tr><td>10</td><td>Alanyaspor</td><td>28</td><td>6</td><td>14</td><td>8</td><td>34</td><td>33</td><td>1</td><td>32</td></tr>
+<tr><td>11</td><td>Konyaspor</td><td>28</td><td>7</td><td>10</td><td>11</td><td>33</td><td>41</td><td>-8</td><td>31</td></tr>
+<tr><td>12</td><td>Ç. Rizespor</td><td>27</td><td>7</td><td>9</td><td>11</td><td>33</td><td>38</td><td>-5</td><td>30</td></tr>
+<tr><td>13</td><td>Antalyaspor</td><td>28</td><td>7</td><td>7</td><td>14</td><td>28</td><td>43</td><td>-15</td><td>28</td></tr>
+<tr><td>14</td><td>Kasımpaşa</td><td>28</td><td>6</td><td>9</td><td>13</td><td>25</td><td>38</td><td>-13</td><td>27</td></tr>
+<tr><td>15</td><td>Gençlerbirliği</td><td>28</td><td>6</td><td>7</td><td>15</td><td>28</td><td>39</td><td>-11</td><td>25</td></tr>
+<tr><td>16</td><td>Kayserispor</td><td>28</td><td>4</td><td>11</td><td>13</td><td>21</td><td>50</td><td>-29</td><td>23</td></tr>
+<tr><td>17</td><td>Eyüpspor</td><td>28</td><td>5</td><td>7</td><td>16</td><td>19</td><td>41</td><td>-22</td><td>22</td></tr>
+<tr><td>18</td><td>Karagümrük</td><td>28</td><td>5</td><td>5</td><td>18</td><td>26</td><td>48</td><td>-22</td><td>20</td></tr>
+</tbody>
+</table>
+[00:04, 06.04.2026] Yusuf Eymen: </div>
 ​<script>
-function tabAc(evt, sayfaIsmi) {
+function tabDegis(evt, sayfaId) {
 var i, icerik, butonlar;
-icerik = document.getElementsByClassName("icerik");
-for (i = 0; i < icerik.length; i++) { icerik[i].style.display = "none"; }
-butonlar = document.getElementsByClassName("tab-button");
-for (i = 0; i < butonlar.length; i++) { butonlar[i].className = butonlar[i].className.replace(" active", ""); }
-document.getElementById(sayfaIsmi).style.display = "block";
-evt.currentTarget.className += " active";
+icerik = document.getElementsByClassName("sayfa-icerik");
+for (i = 0; i < icerik.length; i++) {
+icerik[i].style.display = "none";
+icerik[i].className = icerik[i].className.replace(" aktif", "");
+}
+butonlar = document.getElementsByClassName("sekme-butonu");
+for (i = 0; i < butonlar.length; i++) {
+butonlar[i].className = butonlar[i].className.replace(" aktif", "");
+}
+document.getElementById(sayfaId).style.display = "block";
+document.getElementById(sayfaId).className += " aktif";
+evt.currentTarget.className += " aktif";
 }
 </script>
 ​</body>
