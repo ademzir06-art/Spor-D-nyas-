@@ -1,38 +1,40 @@
-​<!DOCTYPE html>
+[16:04, 05.04.2026] Yusuf Eymen: ​<!DOCTYPE html>
 ​<html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Spor Dünyası | Derbi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spor Dünyası | Yusuf Eymen</title>
 <style>
-body { font-family: sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; padding: 20px; }
-.ana-kutu { background: white; padding: 30px; border-radius: 20px; max-width: 800px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-h1 { color: #1a1a1a; font-size: 28px; border-left: 6px solid #d32f2f; padding-left: 15px; margin-bottom: 20px; }
-.metin { font-size: 18px; line-height: 1.8; color: #333; margin-bottom: 25px; }
-.resim-alani { text-align: center; margin: 30px 0; background: #fafafa; padding: 15px; border-radius: 10px; }
-.haber-resmi { width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-.kaynak-yazisi { font-size: 13px; color: #888; margin-top: 10px; font-style: italic; }
-.yorumlar { margin-top: 40px; padding-top: 20px; border-top: 2px solid #eee; }
-textarea { width: 100%; height: 80px; padding: 12px; border-radius: 8px; border: 1px solid #ccc; margin-top: 10px; resize: none; }
-button { background: #d32f2f; color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+body { font-family: sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; display: flex; justify-content: center; }
+.ana-kutu { background: white; width: 100%; max-width: 700px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.15); overflow: hidden; }
+.tab-menu { display: flex; background: #1a1a1a; }
+.tab-button { flex: 1; padding: 15px; border: none; background: none; color: #bbb; cursor: pointer; font-weight: bold; transition: 0.3s; }
+.tab-button.active { background: #d32f2f; color: white; }
+.icerik { padding: 30px; display: none; }
+.icerik.active { display: block; }
+.skor-alani { background: #1a1a1a; color: #ffcc00; padding: 20px; border-radius: 10px; text-align: center; font-size: 26px; font-weight: bold; margin-bottom: 25px; border: 2px solid #333; }
+.kadro-liste { background: #fdfdfd; padding: 15px; border-radius: 8px; border-left: 5px solid #d32f2f; margin-bottom: 20px; line-height: 1.6; color: #333; }
+.yazar-bilgi { font-size: 13px; color: #777; margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px; text-align: right; }
+.arshiv-link { display: inline-block; margin-top: 20px; color: #d32f2f; text-decoration: none; font-weight: bold; font-size: 14px; }
 </style>
 </head>
 <body>
-<div class="ana-kutu">
-<h1>GS'DE EKSİKLER DÜŞÜNDÜRÜYOR! OKAN BURUK'UN TERCİHİ NE OLACAK?</h1>
-<div class="metin">
-Derbi için geri sayım başlamışken gözler kadrosunun en önemli oyuncularından Osimhen, Sara ve Sane'nin eksikliğinde Okan Buruk'un tercihleri ne olacağı konusunda. İşte tahmini ilk 11'ler:
+​<div class="ana-kutu">
+<div class="tab-menu">
+<button class="tab-button active" onclick="tabAc(event, 'haber')">MAÇ SONUCU</button>
+<button class="tab-button" onclick="tabAc(event, 'kadrolar')">İLK 11'LER</button>
 </div>
-<div class="resim-alani">
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzzO0oZ-eyEXXH0YCR4dKMYYCPdTeZnRLAVg&s" class="haber-resmi">
-<p class="kaynak-yazisi">Kaynak: TRT Spor</p>
-</div>
-<div class="yorumlar">
-<h3>Yorum Yap</h3>
-<textarea placeholder="Sizce bu eksiklere rağmen skor ne olur?"></textarea>
-
-
-<button onclick="alert('Yorumunuz denetime gönderildi!')">Gönder</button>
-</div>
-</div>
-</body>
+[16:05, 05.04.2026] Yusuf Eymen: </div>
+​<script>
+function tabAc(evt, sayfaIsmi) {
+var i, icerik, butonlar;
+icerik = document.getElementsByClassName("icerik");
+for (i = 0; i < icerik.length; i++) { icerik[i].style.display = "none"; }
+butonlar = document.getElementsByClassName("tab-button");
+for (i = 0; i < butonlar.length; i++) { butonlar[i].className = butonlar[i].className.replace(" active", ""); }
+document.getElementById(sayfaIsmi).style.display = "block";
+evt.currentTarget.className += " active";
+}
+</script>
+​</body>
 </html>
