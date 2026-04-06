@@ -1,83 +1,86 @@
-<!DOCTYPE html>
+[23:54, 06.04.2026] Yusuf Eymen: <!DOCTYPE html>
 ​<html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spor Dünyası</title>
 <style>
-body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
-.tab-butonlari { margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
-.buton { padding: 10px 20px; cursor: pointer; border: 1px solid #ccc; background: #f0f0f0; margin-right: 5px; }
-.buton.aktif { background: #ddd; font-weight: bold; }
+body { font-family: sans-serif; padding: 20px; line-height: 1.6; background-color: #f4f4f4; }
+.konteynir { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+.sekme-menusu { margin-bottom: 20px; border-bottom: 2px solid #ddd; }
+.sekme-butonu { padding: 10px 20px; cursor: pointer; border: none; background: none; font-size: 16px; }
+.sekme-butonu.aktif { border-bottom: 3px solid #007bff; color: #007bff; font-weight: bold; }
 .sayfa { display: none; }
 .sayfa.aktif { display: block; }
 table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-th, td { border: 1px solid #000; padding: 8px; text-align: center; }
-.imza { margin-top: 30px; text-align: right; font-weight: bold; }
+th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+th { background-color: #f8f9fa; }
+.tarih-baslik { background-color: #eee; font-weight: bold; text-align: left; padding: 5px 10px; }
+.yorum-alani { margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; }
+.yorum-kutu { width: 100%; height: 80px; margin-bottom: 10px; padding: 10px; box-sizing: border-box; }
+.buton { background: #28a745; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; }
+.bildirim-buton { background: #007bff; margin-left: 10px; }
+.kaynak { font-size: 12px; color: gray; margin-top: 10px; }
 </style>
 </head>
 <body>
-​<div class="tab-butonlari">
-<button class="buton aktif" onclick="sayfaDegistir(event, 's1')">1. Sayfa</button>
-<button class="buton" onclick="sayfaDegistir(event, 's2')">2. Sayfa</button>
+​<div class="konteynir">
+<div class="sekme-menusu">
+<button class="sekme-butonu aktif" onclick="sekmeAc(event, 'haber')">Gündem</button>
+<button class="sekme-butonu" onclick="sekmeAc(event, 'fikstur')">29. Hafta Fikstür</button>
 </div>
-​<div id="s1" class="sayfa aktif">
-<h1>DEV DERBİNİN KAZANANI FENERBAHÇE!</h1>
-<p>Süperlig 28.haftasında Chobani stadyumunda oynanan maçta Fenerbahçe puanı kazandı, bu 3 puan Fenerbahçe için çok önemliyken aynı zamanda Beşiktaş için de çok önemliydi. Maç sonu detaylar arka sayfada</p>
-[00:03, 06.04.2026] Yusuf Eymen: </div>
-​<div id="p2" class="sayfa-icerik">
-<h2>Süperlig Puan Durumu</h2>
-<table>
-<thead>
-<tr>
-<th>Sıra</th>
-<th>Takım</th>
-<th>O</th>
-<th>G</th>
-<th>B</th>
-<th>M</th>
-<th>AG</th>
-<th>YG</th>
-<th>AV</th>
-<th>P</th>
-</tr>
-</thead>
-<tbody>
-<tr><td>1</td><td>Galatasaray</td><td>27</td><td>20</td><td>4</td><td>3</td><td>63</td><td>20</td><td>43</td><td>64</td></tr>
-<tr><td>2</td><td>Fenerbahçe</td><td>28</td><td>18</td><td>9</td><td>1</td><td>62</td><td>28</td><td>34</td><td>63</td></tr>
-<tr><td>3</td><td>Trabzonspor</td><td>28</td><td>19</td><td>6</td><td>3</td><td>55</td><td>30</td><td>25</td><td>63</td></tr>
-<tr><td>4</td><td>Beşiktaş</td><td>28</td><td>15</td><td>7</td><td>6</td><td>49</td><td>32</td><td>17</td><td>52</td></tr>
-<tr><td>5</td><td>Göztepe</td><td>27</td><td>12</td><td>10</td><td>5</td><td>32</td><td>20</td><td>12</td><td>46</td></tr>
-<tr><td>6</td><td>Başakşehir</td><td>27</td><td>12</td><td>7</td><td>8</td><td>44</td><td>30</td><td>14</td><td>43</td></tr>
-<tr><td>7</td><td>Samsunspor</td><td>27</td><td>8</td><td>12</td><td>7</td><td>31</td><td>33</td><td>-2</td><td>36</td></tr>
-<tr><td>8</td><td>Gaziantep FK</td><td>28</td><td>8</td><td>10</td><td>10</td><td>37</td><td>47</td><td>-10</td><td>34</td></tr>
-<tr><td>9</td><td>Kocaelispor</td><td>27</td><td>9</td><td>6</td><td>12</td><td>23</td><td>32</td><td>-9</td><td>33</td></tr>
-<tr><td>10</td><td>Alanyaspor</td><td>28</td><td>6</td><td>14</td><td>8</td><td>34</td><td>33</td><td>1</td><td>32</td></tr>
-<tr><td>11</td><td>Konyaspor</td><td>28</td><td>7</td><td>10</td><td>11</td><td>33</td><td>41</td><td>-8</td><td>31</td></tr>
-<tr><td>12</td><td>Ç. Rizespor</td><td>27</td><td>7</td><td>9</td><td>11</td><td>33</td><td>38</td><td>-5</td><td>30</td></tr>
-<tr><td>13</td><td>Antalyaspor</td><td>28</td><td>7</td><td>7</td><td>14</td><td>28</td><td>43</td><td>-15</td><td>28</td></tr>
-<tr><td>14</td><td>Kasımpaşa</td><td>28</td><td>6</td><td>9</td><td>13</td><td>25</td><td>38</td><td>-13</td><td>27</td></tr>
-<tr><td>15</td><td>Gençlerbirliği</td><td>28</td><td>6</td><td>7</td><td>15</td><td>28</td><td>39</td><td>-11</td><td>25</td></tr>
-<tr><td>16</td><td>Kayserispor</td><td>28</td><td>4</td><td>11</td><td>13</td><td>21</td><td>50</td><td>-29</td><td>23</td></tr>
-<tr><td>17</td><td>Eyüpspor</td><td>28</td><td>5</td><td>7</td><td>16</td><td>19</td><td>41</td><td>-22</td><td>22</td></tr>
-<tr><td>18</td><td>Karagümrük</td><td>28</td><td>5</td><td>5</td><td>18</td><td>26</td><td>48</td><td>-22</td><td>20</td></tr>
-</tbody>
-</table>
-[00:04, 06.04.2026] Yusuf Eymen: </div>
+[00:05, 07.04.2026] Yusuf Eymen: <div id="haber" class="sayfa aktif">
+    <h1>LİDERLİK YARIŞI DEVAM EDİYOR!</h1>
+    <p>Süperlig 28.haftasında oynanan maçlarda Fenerbahçe ve Trabzon spor'un Beşiktaş ve Galatasaray karşılaşmalarında aldıkları galibiyet sonucunda iki takımın da ligde puanları eşitlendi ve iki takım da şampiyonluk yarışında önemli galibiyetler aldı. Ligde lider konumda olan Galatasaray ise aldığı mağlubiyet sonucu maç eksikliği ile Fenerbahçeden 1 puan ileride. İşte haftanın geri kalan fikstürü, 29. hafta:</p>
+    <p class="kaynak">Kaynak: TRT Spor</p>
+</div>
+
+<div id="fikstur" class="sayfa">
+    <h2>29. Hafta Maç Programı</h2>
+    <table>
+        <tr><td colspan="3" class="tarih-baslik">8 Nisan 2026 - Çarşamba</td></tr>
+        <tr><td>20:00</td><td>Göztepe</td><td>-</td><td>Galatasaray</td></tr>
+        
+        <tr><td colspan="3" class="tarih-baslik">10 Nisan 2026 - Cuma</td></tr>
+        <tr><td>20:00</td><td>Beşiktaş</td><td>-</td><td>Antalyaspor</td></tr>
+        
+        <tr><td colspan="3" class="tarih-baslik">11 Nisan 2026 - Cumartesi</td></tr>
+        <tr><td>14:30</td><td>Başakşehir</td><td>-</td><td>Gençlerbirliği</td></tr>
+        <tr><td>17:00</td><td>Alanyaspor</td><td>-</td><td>Trabzonspor</td></tr>
+        <tr><td>20:00</td><td>Kayserispor</td><td>-</td><td>Fenerbahçe</td></tr>
+        
+        <tr><td colspan="3" class="tarih-baslik">12 Nisan 2026 - Pazar</td></tr>
+        <tr><td>14:30</td><td>Konyaspor</td><td>-</td><td>Karagümrük</td></tr>
+        <tr><td>17:00</td><td>Göztepe</td><td>-</td><td>Kasımpaşa</td></tr>
+        <tr><td>20:00</td><td>Galatasaray</td><td>-</td><td>Kocaelispor</td></tr>
+        
+        <tr><td colspan="3" class="tarih-baslik">13 Nisan 2026 - Pazartesi</td></tr>
+        <tr><td>20:00</td><td>Eyüpspor</td><td>-</td><td>Samsunspor</td></tr>
+        <tr><td>20:00</td><td>Ç.Rizespor</td><td>-</td><td>Gaziantep FK</td></tr>
+    </table>
+    <p class="kaynak">Kaynak: TRT Spor</p>
+</div>
+
+<div class="yorum-alani">
+    <h3>Yorum Yap</h3>
+    <textarea class="yorum-kutu" placeholder="Maçlar hakkında ne düşünüyorsun?"></textarea>
+    <br>
+    <button class="buton" onclick="alert('Yorumunuz gönderildi!')">Yorum Gönder</button>
+    <button class="buton bildirim-buton" onclick="alert('Bildirimler açıldı!')">Bildirimleri Aç</button>
+</div>
+[00:05, 07.04.2026] Yusuf Eymen: </div>
 ​<script>
-function tabDegis(evt, sayfaId) {
-var i, icerik, butonlar;
-icerik = document.getElementsByClassName("sayfa-icerik");
-for (i = 0; i < icerik.length; i++) {
-icerik[i].style.display = "none";
-icerik[i].className = icerik[i].className.replace(" aktif", "");
+function sekmeAc(evt, sayfaAdi) {
+var i, sayfa, sekmebutonlari;
+sayfa = document.getElementsByClassName("sayfa");
+for (i = 0; i < sayfa.length; i++) {
+sayfa[i].style.display = "none";
 }
-butonlar = document.getElementsByClassName("sekme-butonu");
-for (i = 0; i < butonlar.length; i++) {
-butonlar[i].className = butonlar[i].className.replace(" aktif", "");
+sekmebutonlari = document.getElementsByClassName("sekme-butonu");
+for (i = 0; i < sekmebutonlari.length; i++) {
+sekmebutonlari[i].className = sekmebutonlari[i].className.replace(" aktif", "");
 }
-document.getElementById(sayfaId).style.display = "block";
-document.getElementById(sayfaId).className += " aktif";
+document.getElementById(sayfaAdi).style.display = "block";
 evt.currentTarget.className += " aktif";
 }
 </script>
