@@ -1,0 +1,88 @@
+[23:54, 06.04.2026] Yusuf Eymen: <!DOCTYPE html>
+​<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spor Dünyası</title>
+<style>
+body { font-family: sans-serif; padding: 20px; line-height: 1.6; background-color: #f4f4f4; }
+.konteynir { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+.sekme-menusu { margin-bottom: 20px; border-bottom: 2px solid #ddd; }
+.sekme-butonu { padding: 10px 20px; cursor: pointer; border: none; background: none; font-size: 16px; }
+.sekme-butonu.aktif { border-bottom: 3px solid #007bff; color: #007bff; font-weight: bold; }
+.sayfa { display: none; }
+.sayfa.aktif { display: block; }
+table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+th { background-color: #f8f9fa; }
+.tarih-baslik { background-color: #eee; font-weight: bold; text-align: left; padding: 5px 10px; }
+.yorum-alani { margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; }
+.yorum-kutu { width: 100%; height: 80px; margin-bottom: 10px; padding: 10px; box-sizing: border-box; }
+.buton { background: #28a745; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; }
+.bildirim-buton { background: #007bff; margin-left: 10px; }
+.kaynak { font-size: 12px; color: gray; margin-top: 10px; }
+</style>
+</head>
+<body>
+​<div class="konteynir">
+<div class="sekme-menusu">
+<button class="sekme-butonu aktif" onclick="sekmeAc(event, 'haber')">Gündem</button>
+<button class="sekme-butonu" onclick="sekmeAc(event, 'fikstur')">29. Hafta Fikstür</button>
+</div>
+[00:05, 07.04.2026] Yusuf Eymen: <div id="haber" class="sayfa aktif">
+    <h1>LİDERLİK YARIŞI DEVAM EDİYOR!</h1>
+    <p>Süperlig 28.haftasında oynanan maçlarda Fenerbahçe ve Trabzon spor'un Beşiktaş ve Galatasaray karşılaşmalarında aldıkları galibiyet sonucunda iki takımın da ligde puanları eşitlendi ve iki takım da şampiyonluk yarışında önemli galibiyetler aldı. Ligde lider konumda olan Galatasaray ise aldığı mağlubiyet sonucu maç eksikliği ile Fenerbahçeden 1 puan ileride. İşte haftanın geri kalan fikstürü, 29. hafta:</p>
+    <p class="kaynak">Kaynak: TRT Spor</p>
+</div>
+
+<div id="fikstur" class="sayfa">
+    <h2>29. Hafta Maç Programı</h2>
+    <table>
+        <tr><td colspan="3" class="tarih-baslik">8 Nisan 2026 - Çarşamba</td></tr>
+        <tr><td>20:00</td><td>Göztepe</td><td>-</td><td>Galatasaray</td></tr>
+        
+        <tr><td colspan="3" class="tarih-baslik">10 Nisan 2026 - Cuma</td></tr>
+        <tr><td>20:00</td><td>Beşiktaş</td><td>-</td><td>Antalyaspor</td></tr>
+        
+        <tr><td colspan="3" class="tarih-baslik">11 Nisan 2026 - Cumartesi</td></tr>
+        <tr><td>14:30</td><td>Başakşehir</td><td>-</td><td>Gençlerbirliği</td></tr>
+        <tr><td>17:00</td><td>Alanyaspor</td><td>-</td><td>Trabzonspor</td></tr>
+        <tr><td>20:00</td><td>Kayserispor</td><td>-</td><td>Fenerbahçe</td></tr>
+        
+        <tr><td colspan="3" class="tarih-baslik">12 Nisan 2026 - Pazar</td></tr>
+        <tr><td>14:30</td><td>Konyaspor</td><td>-</td><td>Karagümrük</td></tr>
+        <tr><td>17:00</td><td>Göztepe</td><td>-</td><td>Kasımpaşa</td></tr>
+        <tr><td>20:00</td><td>Galatasaray</td><td>-</td><td>Kocaelispor</td></tr>
+        
+        <tr><td colspan="3" class="tarih-baslik">13 Nisan 2026 - Pazartesi</td></tr>
+        <tr><td>20:00</td><td>Eyüpspor</td><td>-</td><td>Samsunspor</td></tr>
+        <tr><td>20:00</td><td>Ç.Rizespor</td><td>-</td><td>Gaziantep FK</td></tr>
+    </table>
+    <p class="kaynak">Kaynak: TRT Spor</p>
+</div>
+
+<div class="yorum-alani">
+    <h3>Yorum Yap</h3>
+    <textarea class="yorum-kutu" placeholder="Maçlar hakkında ne düşünüyorsun?"></textarea>
+    <br>
+    <button class="buton" onclick="alert('Yorumunuz gönderildi!')">Yorum Gönder</button>
+    <button class="buton bildirim-buton" onclick="alert('Bildirimler açıldı!')">Bildirimleri Aç</button>
+</div>
+[00:05, 07.04.2026] Yusuf Eymen: </div>
+​<script>
+function sekmeAc(evt, sayfaAdi) {
+var i, sayfa, sekmebutonlari;
+sayfa = document.getElementsByClassName("sayfa");
+for (i = 0; i < sayfa.length; i++) {
+sayfa[i].style.display = "none";
+}
+sekmebutonlari = document.getElementsByClassName("sekme-butonu");
+for (i = 0; i < sekmebutonlari.length; i++) {
+sekmebutonlari[i].className = sekmebutonlari[i].className.replace(" aktif", "");
+}
+document.getElementById(sayfaAdi).style.display = "block";
+evt.currentTarget.className += " aktif";
+}
+</script>
+​</body>
+</html>
