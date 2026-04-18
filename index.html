@@ -3,30 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLASHZONE | Dijital Haber Platformu</title>
-    <meta name="description" content="YUSALIMEH FLASHZONE: En güncel spor haberleri, analizler ve gelecek vizyonu.">
+    <title>YUSALIMEH HABER | Güncel ve Analitik Haber Portalı</title>
+    <meta name="description" content="Yusalimeh Haber: Spor, bilim ve teknoloji dünyasından en sıcak gelişmeler.">
     
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f4f7f6; display: flex; flex-direction: column; min-height: 100vh; color: #333; }
         
-        /* Üst Başlık */
-        header { background: #003366; color: white; padding: 30px 20px; text-align: center; border-bottom: 5px solid #ffcc00; }
-        header h1 { font-size: 3rem; letter-spacing: 4px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        header { background: #002244; color: white; padding: 30px 20px; text-align: center; border-bottom: 5px solid #d4af37; }
+        header h1 { font-size: 3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
         header p { font-style: italic; margin-top: 5px; opacity: 0.9; }
 
         .ana-konteynir { display: flex; flex: 1; max-width: 1200px; margin: 20px auto; width: 100%; gap: 20px; padding: 15px; }
 
-        /* Sol Menü (Haber Listesi ve Tanıtım) */
         .yan-panel { width: 30%; }
         .kart { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .kart h3 { border-bottom: 2px solid #003366; padding-bottom: 10px; margin-bottom: 15px; color: #003366; }
+        .kart h3 { border-bottom: 2px solid #002244; padding-bottom: 10px; margin-bottom: 15px; color: #002244; }
         
         .menu-link { display: block; padding: 12px; color: #444; text-decoration: none; border-radius: 6px; margin-bottom: 8px; background: #f9f9f9; transition: 0.3s; cursor: pointer; font-weight: 600; }
-        .menu-link:hover { background: #003366; color: white; }
-        .menu-link.aktif { background: #ffcc00; color: #003366; }
+        .menu-link:hover { background: #002244; color: white; }
+        .menu-link.aktif { background: #d4af37; color: #002244; }
 
-        /* Sağ Alan (İçerik) */
         .icerik-alani { width: 70%; background: white; padding: 35px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .sayfa { display: none; }
         .sayfa.aktif { display: block; animation: fadeIn 0.5s; }
@@ -36,10 +33,9 @@
         h2 { color: #cc0000; margin-bottom: 20px; line-height: 1.3; }
         p { line-height: 1.8; margin-bottom: 20px; font-size: 1.1rem; }
         
-        /* Fikstür Tablosu */
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background-color: #003366; color: white; }
+        th { background-color: #002244; color: white; }
         .tarih-satir { background-color: #eee; font-weight: bold; }
         .skor { font-weight: bold; color: #cc0000; text-align: center; }
 
@@ -49,21 +45,21 @@
 <body>
 
 <header>
-    <h1>FLASHZONE</h1>
-    <p>Bağımsız, Hızlı ve Analitik Haberci</p>
+    <h1>YUSALIMEH HABER</h1>
+    <p>Geleceğin Bilgi Kaynağı</p>
 </header>
 
 <div class="ana-konteynir">
     <div class="yan-panel">
         <div class="kart">
-            <h3>Flashzone Hakkında</h3>
-            <p style="font-size: 0.9rem;">Flashzone; Yusuf Eymen Zik tarafından kurulan, spor dünyasından bilime kadar her şeyi tarafsızca sunan bir dijital platformdur. Amacımız sadece haber vermek değil, olayların arkasındaki gerçeği analiz etmektir.</p>
+            <h3>Hakkımızda</h3>
+            <p style="font-size: 0.9rem;">Yusalimeh Haber; Yusuf Eymen Zik tarafından temelleri atılan Yusalimeh Holding'in dijital yayın organıdır. Spor, bilim ve küresel stratejiler üzerine en hızlı ve doğru analizleri sunmayı amaçlar.</p>
         </div>
         <div class="kart">
-            <h3>Menü</h3>
-            <div class="menu-link aktif" onclick="sekmeAc('haber30', this)">30. Hafta Analizi</div>
-            <div class="menu-link" onclick="sekmeAc('fikstur30', this)">30. Hafta Sonuçları</div>
-            <div class="menu-link" onclick="sekmeAc('eskiHaberler', this)">Arşiv (Eski Haberler)</div>
+            <h3>Haber Kategorileri</h3>
+            <div class="menu-link aktif" onclick="sekmeAc('haber30', this)">Fenerbahçe Analizi</div>
+            <div class="menu-link" onclick="sekmeAc('fikstur30', this)">30. Hafta Skorları</div>
+            <div class="menu-link" onclick="sekmeAc('arsiv', this)">Eski Haberler</div>
         </div>
     </div>
 
@@ -100,17 +96,17 @@
             </table>
         </div>
 
-        <div id="eskiHaberler" class="sayfa">
-            <h2>ESKİ HABERLER</h2>
-            <p>29. Hafta: Liderlik yarışı devam ediyor. Puanlar eşitlendi!</p>
-            <p>28. Hafta: Kritik derbi sonuçları ve transfer dedikoduları.</p>
+        <div id="arsiv" class="sayfa">
+            <h2>HABER ARŞİVİ</h2>
+            <p>29. Hafta: Liderlik yarışı tüm hızıyla devam ediyor.</p>
+            <p>28. Hafta: Puan durumundaki büyük değişimler ve transfer haberleri.</p>
         </div>
 
     </div>
 </div>
 
 <footer>
-    &copy; 2026 FLASHZONE | Yusuf Eymen Zik Projesidir. Tüm Hakları Saklıdır.
+    &copy; 2026 YUSALIMEH HABER | Bir Yusuf Eymen Zik Girişimidir.
 </footer>
 
 <script>
