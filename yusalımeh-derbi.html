@@ -1,88 +1,134 @@
-[23:54, 06.04.2026] Yusuf Eymen: <!DOCTYPE html>
-​<html lang="tr">
+<!DOCTYPE html>
+<html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spor Dünyası</title>
-<style>
-body { font-family: sans-serif; padding: 20px; line-height: 1.6; background-color: #f4f4f4; }
-.konteynir { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-.sekme-menusu { margin-bottom: 20px; border-bottom: 2px solid #ddd; }
-.sekme-butonu { padding: 10px 20px; cursor: pointer; border: none; background: none; font-size: 16px; }
-.sekme-butonu.aktif { border-bottom: 3px solid #007bff; color: #007bff; font-weight: bold; }
-.sayfa { display: none; }
-.sayfa.aktif { display: block; }
-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
-th { background-color: #f8f9fa; }
-.tarih-baslik { background-color: #eee; font-weight: bold; text-align: left; padding: 5px 10px; }
-.yorum-alani { margin-top: 30px; border-top: 2px solid #eee; padding-top: 20px; }
-.yorum-kutu { width: 100%; height: 80px; margin-bottom: 10px; padding: 10px; box-sizing: border-box; }
-.buton { background: #28a745; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; }
-.bildirim-buton { background: #007bff; margin-left: 10px; }
-.kaynak { font-size: 12px; color: gray; margin-top: 10px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLASHZONE | Dijital Haber Platformu</title>
+    <meta name="description" content="Flashzone: En güncel spor haberleri, analizler ve gelecek vizyonu.">
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f7f6; display: flex; flex-direction: column; min-height: 100vh; color: #333; }
+        
+        /* Üst Başlık */
+        header { background: #003366; color: white; padding: 30px 20px; text-align: center; border-bottom: 5px solid #ffcc00; }
+        header h1 { font-size: 3rem; letter-spacing: 4px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        header p { font-style: italic; margin-top: 5px; opacity: 0.9; }
+
+        .ana-konteynir { display: flex; flex: 1; max-width: 1200px; margin: 20px auto; width: 100%; gap: 20px; padding: 15px; }
+
+        /* Sol Menü (Haber Listesi ve Tanıtım) */
+        .yan-panel { width: 30%; }
+        .kart { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .kart h3 { border-bottom: 2px solid #003366; padding-bottom: 10px; margin-bottom: 15px; color: #003366; }
+        
+        .menu-link { display: block; padding: 12px; color: #444; text-decoration: none; border-radius: 6px; margin-bottom: 8px; background: #f9f9f9; transition: 0.3s; cursor: pointer; font-weight: 600; }
+        .menu-link:hover { background: #003366; color: white; }
+        .menu-link.aktif { background: #ffcc00; color: #003366; }
+
+        /* Sağ Alan (İçerik) */
+        .icerik-alani { width: 70%; background: white; padding: 35px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .sayfa { display: none; }
+        .sayfa.aktif { display: block; animation: fadeIn 0.5s; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        h2 { color: #cc0000; margin-bottom: 20px; line-height: 1.3; }
+        p { line-height: 1.8; margin-bottom: 20px; font-size: 1.1rem; }
+        
+        /* Fikstür Tablosu */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #003366; color: white; }
+        .tarih-satir { background-color: #eee; font-weight: bold; }
+        .skor { font-weight: bold; color: #cc0000; text-align: center; }
+
+        footer { background: #1a1a1a; color: white; text-align: center; padding: 20px; margin-top: auto; }
+    </style>
 </head>
 <body>
-​<div class="konteynir">
-<div class="sekme-menusu">
-<button class="sekme-butonu aktif" onclick="sekmeAc(event, 'haber')">Gündem</button>
-<button class="sekme-butonu" onclick="sekmeAc(event, 'fikstur')">29. Hafta Fikstür</button>
-</div>
-[00:05, 07.04.2026] Yusuf Eymen: <div id="haber" class="sayfa aktif">
-    <h1>LİDERLİK YARIŞI DEVAM EDİYOR!</h1>
-    <p>Süperlig 28.haftasında oynanan maçlarda Fenerbahçe ve Trabzon spor'un Beşiktaş ve Galatasaray karşılaşmalarında aldıkları galibiyet sonucunda iki takımın da ligde puanları eşitlendi ve iki takım da şampiyonluk yarışında önemli galibiyetler aldı. Ligde lider konumda olan Galatasaray ise aldığı mağlubiyet sonucu maç eksikliği ile Fenerbahçeden 1 puan ileride. İşte haftanın geri kalan fikstürü, 29. hafta:</p>
-    <p class="kaynak">Kaynak: TRT Spor</p>
+
+<header>
+    <h1>FLASHZONE</h1>
+    <p>Bağımsız, Hızlı ve Analitik Haberci</p>
+</header>
+
+<div class="ana-konteynir">
+    <div class="yan-panel">
+        <div class="kart">
+            <h3>Flashzone Hakkında</h3>
+            <p style="font-size: 0.9rem;">Flashzone; Yusuf Eymen Zik tarafından kurulan, spor dünyasından bilime kadar her şeyi tarafsızca sunan bir dijital platformdur. Amacımız sadece haber vermek değil, olayların arkasındaki gerçeği analiz etmektir.</p>
+        </div>
+        <div class="kart">
+            <h3>Menü</h3>
+            <div class="menu-link aktif" onclick="sekmeAc('haber30', this)">30. Hafta Analizi</div>
+            <div class="menu-link" onclick="sekmeAc('fikstur30', this)">30. Hafta Sonuçları</div>
+            <div class="menu-link" onclick="sekmeAc('eskiHaberler', this)">Arşiv (Eski Haberler)</div>
+        </div>
+    </div>
+
+    <div class="icerik-alani">
+        
+        <div id="haber30" class="sayfa aktif">
+            <h2>FENERBAHÇE ŞAMPİYONLUK YOLUNDA BÜYÜK BİR YARA ALDI!</h2>
+            <p>Fenerbahçe ligin 30. haftasında kendi evinde Çaykur Rizespor'u konuk etti. İlk devrede gol sesi çıkmayan maçta ilk gol 47. dakikada Ali Sowe'un golüyle geldi, ancak Karadeniz ekibi Samet Akaydın'ın 72. dakikada gördüğü kırmızı kartla 10 kişi kaldı.</p>
+            <p>Sarı lacivertliler 80. dakikada Talisca'nın penaltı golüyle ve Kerem Aktürkoğlu'nun 86. dakikada golüyle öne geçti. Herkes maç bitti derken Karadeniz ekibi 90+8'de golü buldu ve maç berabere bitti.</p>
+            <p>Maç fazlasıyla lider Galatasaray'a 1 puan yaklaşan Fenerbahçe, şu an gözünü ileriki maçlara çevirdi. Şimdi de Gençlerbirliği, Galatasaray'ı konuk edecek.</p>
+        </div>
+
+        <div id="fikstur30" class="sayfa">
+            <h2>30. HAFTA MAÇ PROGRAMI VE SONUÇLAR</h2>
+            <table>
+                <thead>
+                    <tr><th>Saat</th><th>Ev Sahibi</th><th>Skor</th><th>Misafir</th></tr>
+                </thead>
+                <tbody>
+                    <tr class="tarih-satir"><td colspan="4">17 Nisan 2026 - Cuma</td></tr>
+                    <tr><td>20:00</td><td>Antalyaspor</td><td class="skor">0 - 2</td><td>Konyaspor</td></tr>
+                    <tr><td>20:00</td><td>Fenerbahçe</td><td class="skor">2 - 2</td><td>Ç.Rizespor</td></tr>
+                    
+                    <tr class="tarih-satir"><td colspan="4">18 Nisan 2026 - Cumartesi</td></tr>
+                    <tr><td>14:30</td><td>Karagümrük</td><td class="skor">-</td><td>Eyüpspor</td></tr>
+                    <tr><td>17:00</td><td>Kocaelispor</td><td class="skor">-</td><td>Göztepe</td></tr>
+                    <tr><td>20:00</td><td>Gençlerbirliği</td><td class="skor">-</td><td>Galatasaray</td></tr>
+
+                    <tr class="tarih-satir"><td colspan="4">19 Nisan 2026 - Pazar</td></tr>
+                    <tr><td>14:30</td><td>Kasımpaşa</td><td class="skor">-</td><td>Alanyaspor</td></tr>
+                    <tr><td>17:00</td><td>Samsunspor</td><td class="skor">-</td><td>Beşiktaş</td></tr>
+                    <tr><td>20:00</td><td>Trabzonspor</td><td class="skor">-</td><td>Başakşehir</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="eskiHaberler" class="sayfa">
+            <h2>ESKİ HABERLER</h2>
+            <p>29. Hafta: Liderlik yarışı devam ediyor. Puanlar eşitlendi!</p>
+            <p>28. Hafta: Kritik derbi sonuçları ve transfer dedikoduları.</p>
+        </div>
+
+    </div>
 </div>
 
-<div id="fikstur" class="sayfa">
-    <h2>29. Hafta Maç Programı</h2>
-    <table>
-        <tr><td colspan="3" class="tarih-baslik">8 Nisan 2026 - Çarşamba</td></tr>
-        <tr><td>20:00</td><td>Göztepe</td><td>-</td><td>Galatasaray</td></tr>
-        
-        <tr><td colspan="3" class="tarih-baslik">10 Nisan 2026 - Cuma</td></tr>
-        <tr><td>20:00</td><td>Beşiktaş</td><td>-</td><td>Antalyaspor</td></tr>
-        
-        <tr><td colspan="3" class="tarih-baslik">11 Nisan 2026 - Cumartesi</td></tr>
-        <tr><td>14:30</td><td>Başakşehir</td><td>-</td><td>Gençlerbirliği</td></tr>
-        <tr><td>17:00</td><td>Alanyaspor</td><td>-</td><td>Trabzonspor</td></tr>
-        <tr><td>20:00</td><td>Kayserispor</td><td>-</td><td>Fenerbahçe</td></tr>
-        
-        <tr><td colspan="3" class="tarih-baslik">12 Nisan 2026 - Pazar</td></tr>
-        <tr><td>14:30</td><td>Konyaspor</td><td>-</td><td>Karagümrük</td></tr>
-        <tr><td>17:00</td><td>Göztepe</td><td>-</td><td>Kasımpaşa</td></tr>
-        <tr><td>20:00</td><td>Galatasaray</td><td>-</td><td>Kocaelispor</td></tr>
-        
-        <tr><td colspan="3" class="tarih-baslik">13 Nisan 2026 - Pazartesi</td></tr>
-        <tr><td>20:00</td><td>Eyüpspor</td><td>-</td><td>Samsunspor</td></tr>
-        <tr><td>20:00</td><td>Ç.Rizespor</td><td>-</td><td>Gaziantep FK</td></tr>
-    </table>
-    <p class="kaynak">Kaynak: TRT Spor</p>
-</div>
+<footer>
+    &copy; 2026 FLASHZONE | Yusuf Eymen Zir Projesidir. Tüm Hakları Saklıdır.
+</footer>
 
-<div class="yorum-alani">
-    <h3>Yorum Yap</h3>
-    <textarea class="yorum-kutu" placeholder="Maçlar hakkında ne düşünüyorsun?"></textarea>
-    <br>
-    <button class="buton" onclick="alert('Yorumunuz gönderildi!')">Yorum Gönder</button>
-    <button class="buton bildirim-buton" onclick="alert('Bildirimler açıldı!')">Bildirimleri Aç</button>
-</div>
-[00:05, 07.04.2026] Yusuf Eymen: </div>
-​<script>
-function sekmeAc(evt, sayfaAdi) {
-var i, sayfa, sekmebutonlari;
-sayfa = document.getElementsByClassName("sayfa");
-for (i = 0; i < sayfa.length; i++) {
-sayfa[i].style.display = "none";
-}
-sekmebutonlari = document.getElementsByClassName("sekme-butonu");
-for (i = 0; i < sekmebutonlari.length; i++) {
-sekmebutonlari[i].className = sekmebutonlari[i].className.replace(" aktif", "");
-}
-document.getElementById(sayfaAdi).style.display = "block";
-evt.currentTarget.className += " aktif";
-}
+<script>
+    function sekmeAc(sayfaId, element) {
+        var sayfalar = document.getElementsByClassName('sayfa');
+        for (var i = 0; i < sayfalar.length; i++) {
+            sayfalar[i].classList.remove('aktif');
+        }
+        var linkler = document.getElementsByClassName('menu-link');
+        for (var i = 0; i < linkler.length; i++) {
+            linkler[i].classList.remove('aktif');
+        }
+        document.getElementById(sayfaId).classList.add('aktif');
+        element.classList.add('aktif');
+    }
 </script>
-​</body>
+
+<script defer src="/_vercel/insights/script.js"></script>
+
+</body>
 </html>
