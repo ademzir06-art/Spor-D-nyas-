@@ -4,128 +4,175 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YUSALIMEH HABER | Küresel Spor Portalı</title>
-   <meta name="google-site-verification" content="Uoc52HqRYj5lGdUq8ZqnVfClTFFNu9Wo7b0XvnQq9_g" /> 
+    <meta name="google-site-verification" content="UecS2hqRYjS1GdUq8ZqnVfC1FFNu9Mo7bQXvnQq9_g" />
     <meta name="description" content="Yusalimeh Haber: Dünyadan en güncel spor gelişmeleri ve profesyonel maç analizleri.">
     
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f4f7f6; display: flex; flex-direction: column; min-height: 100vh; color: #333; }
+        /* Modern CSS Altyapısı */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: #f0f2f5; color: #1c1e21; line-height: 1.6; }
         
-        header { background: #002244; color: white; padding: 30px 20px; text-align: center; border-bottom: 5px solid #d4af37; }
-        header h1 { font-size: 3rem; letter-spacing: 2px; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        header p { font-style: italic; margin-top: 5px; opacity: 0.9; }
+        /* Navigasyon ve Header */
+        header { background: #002244; color: white; padding: 40px 20px; text-align: center; border-bottom: 5px solid #ffcc00; }
+        header h1 { font-size: 3em; letter-spacing: 2px; margin-bottom: 10px; }
+        nav { background: #001a33; position: sticky; top: 0; z-index: 1000; display: flex; justify-content: center; padding: 15px; }
+        nav a { color: white; text-decoration: none; margin: 0 20px; font-weight: bold; transition: 0.3s; text-transform: uppercase; font-size: 0.9em; }
+        nav a:hover { color: #ffcc00; }
 
-        .ana-konteynir { display: flex; flex: 1; max-width: 1200px; margin: 20px auto; width: 100%; gap: 20px; padding: 15px; }
-
-        .yan-panel { width: 30%; }
-        .kart { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .kart h3 { border-bottom: 2px solid #002244; padding-bottom: 10px; margin-bottom: 15px; color: #002244; }
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
         
-        .menu-link { display: block; padding: 12px; color: #444; text-decoration: none; border-radius: 6px; margin-bottom: 8px; background: #f9f9f9; transition: 0.3s; cursor: pointer; font-weight: 600; }
-        .menu-link:hover { background: #002244; color: white; }
-        .menu-link.aktif { background: #d4af37; color: #002244; }
-
-        .icerik-alani { width: 70%; background: white; padding: 35px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .sayfa { display: none; }
-        .sayfa.aktif { display: block; animation: fadeIn 0.5s; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        h2 { color: #cc0000; margin-bottom: 20px; line-height: 1.3; }
-        p { line-height: 1.8; margin-bottom: 20px; font-size: 1.1rem; }
+        /* Haber Kartları */
+        .main-content section { background: white; padding: 30px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h2 { color: #002244; border-left: 6px solid #ffcc00; padding-left: 15px; margin-bottom: 25px; text-transform: uppercase; }
         
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background-color: #002244; color: white; }
-        .tarih-satir { background-color: #eee; font-weight: bold; }
-        .skor { font-weight: bold; color: #cc0000; text-align: center; }
+        .news-header { font-size: 2.2em; line-height: 1.2; margin-bottom: 20px; color: #d90429; }
+        .match-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        .stat-card { background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #dee2e6; }
+        .stat-row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px dashed #ccc; }
 
-        footer { background: #1a1a1a; color: white; text-align: center; padding: 20px; margin-top: auto; }
+        /* Tablo Stilleri */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.85em; }
+        th, td { padding: 12px; border: 1px solid #eee; text-align: center; }
+        th { background: #002244; color: white; }
+        tr:nth-child(even) { background: #f9f9f9; }
+        .highlight { background: #fff3cd !important; font-weight: bold; }
+        .team-konyaspor { color: #0d6832; font-weight: bold; }
+
+        /* Alt Bilgi */
+        .comment-box { background: #eef2f7; padding: 20px; border-radius: 8px; margin-top: 20px; }
+        footer { background: #1c1e21; color: #999; text-align: center; padding: 40px; margin-top: 50px; font-size: 0.9em; }
+
+        @media (max-width: 768px) { .container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <header>
     <h1>YUSALIMEH HABER</h1>
-    <p>Dünyadan Spor Haberlerinin Merkezi</p>
+    <p>Spor Dünyasının Analitik ve Küresel Nabzı</p>
 </header>
 
-<div class="ana-konteynir">
-    <div class="yan-panel">
-        <div class="kart">
-            <h3>Hakkımızda</h3>
-            <p style="font-size: 0.9rem;">Yusalimeh Haber; dünyadan spor haberlerinin paylaşıldığı, tarafsız analizler ve güncel skorlarla sporseverlere rehberlik eden bağımsız bir bilgi platformudur.</p>
-        </div>
-        <div class="kart">
-            <h3>Haber Kategorileri</h3>
-            <div class="menu-link aktif" onclick="sekmeAc('haber30', this)">Fenerbahçe Analizi</div>
-            <div class="menu-link" onclick="sekmeAc('fikstur30', this)">30. Hafta Skorları</div>
-            <div class="menu-link" onclick="sekmeAc('arsiv', this)">Eski Haberler</div>
-        </div>
+<nav>
+    <a href="#haberler">Haberler</a>
+    <a href="#puan-durumu">Puan Durumu</a>
+    <a href="#fikstur">31. Hafta Fikstürü</a>
+    <a href="#tahminler">Tahmini 11'ler</a>
+    <a href="#hakkimizda">Hakkımızda</a>
+</nav>
+
+<div class="container">
+    <div class="main-content">
+        <section id="haberler">
+            <h1 class="news-header">DERBİ İÇİN HEYECAN BAŞLADI!</h1>
+            <p>Beklenen, ligin en büyük derbilerinden birisi olan <strong>Galatasaray-Fenerbahçe</strong> derbisi artık geldi. Pazar günü Ali Sami Yen Spor Kompleksi Rams Park'ta oynanacak maçta ev sahibi Galatasaray oldu. Şampiyonluk yarışının kaderini belirleyecek bu kritik randevuda; <strong>Fenerbahçe kazanırsa puan farkı 1'e düşecek, Galatasaray kazanırsa 7'ye çıkacak.</strong> Tüm Türkiye bu maça kilitlenmiş durumda.</p>
+            <p><i>Fikstür, süper lig puan durumu ve tahmini ilk 11'ler diğer sayfalarda detaylandırılmıştır...</i></p>
+        </section>
+
+        <section id="analizler">
+            <h2>Kritik Maç Analizleri</h2>
+            
+            <h3>Türkiye Kupası: Galatasaray 0 - 2 Gençlerbirliği</h3>
+            <div class="match-stats-grid">
+                <div class="stat-card">
+                    <p><strong>Goller:</strong> Fıratcan Üzüm (51'), Adama Traore (83')</p>
+                    <div class="stat-row"><span>Toplam Şut:</span> <span>17 - 6</span></div>
+                    <div class="stat-row"><span>İsabetli Şut:</span> <span>6 - 4</span></div>
+                    <div class="stat-row"><span>Topla Oynama:</span> <span>%72 - %28</span></div>
+                    <div class="stat-row"><span>Korner:</span> <span>10 - 2</span></div>
+                </div>
+                <div class="stat-card">
+                    <p>Gençlerbirliği, Galatasaray karşısında düşük topla oynama oranına rağmen verimli bir oyunla turu geçmeyi başardı.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top:20px;">Lig: Konyaspor 1 - 0 Fenerbahçe</h3>
+            <div class="match-stats-grid">
+                <div class="stat-card">
+                    <div class="stat-row"><span>Toplam Şut:</span> <span>9 - 24</span></div>
+                    <div class="stat-row"><span>İsabetli Şut:</span> <span>2 - 6</span></div>
+                    <div class="stat-row"><span>Topla Oynama:</span> <span>%36 - %64</span></div>
+                    <div class="stat-row"><span>Beklenen Gol (xG):</span> <span>0.94 - 3.21</span></div>
+                </div>
+                <div class="stat-card">
+                    <p>Fenerbahçe 24 şut ve 3.21 xG ile domine ettiği maçta Konyaspor'un dirençli savunmasını geçemedi ve şampiyonluk yolunda ağır bir yara aldı.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tahminler">
+            <h2>Tahmini İlk 11'ler</h2>
+            <div class="match-stats-grid">
+                <div class="stat-card">
+                    <h4>Galatasaray</h4>
+                    <p>Uğurcan, Sallai, Sanchez, Abdülkerim, Eren, Torreira, Lemina, Yunus, Sane, Barış, Icardi</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Fenerbahçe</h4>
+                    <p>Ederson, Mert, Skriniar, Oosterwolde, Levent, İsmail, Guendouzi, Asensio, Musaba, Kerem, Duran</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="hakkimizda">
+            <h2>Yusalimeh Haber Hakkında</h2>
+            <p>Spor dünyasından en son gelişmeleri, transfer dedikodularını ve derinlemesine maç analizlerini burada bulabilirsiniz. Analitik bir perspektifle hazırladığımız içeriklerimizle sporun nabzını tutuyoruz.</p>
+        </section>
     </div>
 
-    <div class="icerik-alani">
-        
-        <div id="haber30" class="sayfa aktif">
-            <h2>FENERBAHÇE ŞAMPİYONLUK YOLUNDA BÜYÜK BİR YARA ALDI!</h2>
-            <p>Fenerbahçe ligin 30. haftasında kendi evinde Çaykur Rizespor'u konuk etti. İlk devrede gol sesi çıkmayan maçta ilk gol 47. dakikada Ali Sowe'un golüyle geldi, ancak Karadeniz ekibi Samet Akaydın'ın 72. dakikada gördüğü kırmızı kartla 10 kişi kaldı.</p>
-            <p>Sarı lacivertliler 80. dakikada Talisca'nın penaltı golüyle ve Kerem Aktürkoğlu'nun 86. dakikada golüyle öne geçti. Herkes maç bitti derken Karadeniz ekibi 90+8'de golü buldu ve maç berabere bitti.</p>
-            <p>Maç fazlasıyla lider Galatasaray'a 1 puan yaklaşan Fenerbahçe, şu an gözünü ileriki maçlara çevirdi. Şimdi de Gençlerbirliği, Galatasaray'ı konuk edecek.</p>
-        </div>
-
-        <div id="fikstur30" class="sayfa">
-            <h2>30. HAFTA MAÇ PROGRAMI VE SONUÇLAR</h2>
+    <div class="sidebar">
+        <section id="puan-durumu" style="background:white; padding:15px; border-radius:8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h3 style="font-size:1em; margin-bottom:10px;">SÜPER LİG PUAN DURUMU</h3>
             <table>
                 <thead>
-                    <tr><th>Saat</th><th>Ev Sahibi</th><th>Skor</th><th>Misafir</th></tr>
+                    <tr><th>#</th><th>Takım</th><th>O</th><th>P</th></tr>
                 </thead>
                 <tbody>
-                    <tr class="tarih-satir"><td colspan="4">17 Nisan 2026 - Cuma</td></tr>
-                    <tr><td>20:00</td><td>Antalyaspor</td><td class="skor">0 - 2</td><td>Konyaspor</td></tr>
-                    <tr><td>20:00</td><td>Fenerbahçe</td><td class="skor">2 - 2</td><td>Ç.Rizespor</td></tr>
-                    
-                    <tr class="tarih-satir"><td colspan="4">18 Nisan 2026 - Cumartesi</td></tr>
-                    <tr><td>14:30</td><td>Karagümrük</td><td class="skor">-</td><td>Eyüpspor</td></tr>
-                    <tr><td>17:00</td><td>Kocaelispor</td><td class="skor">-</td><td>Göztepe</td></tr>
-                    <tr><td>20:00</td><td>Gençlerbirliği</td><td class="skor">-</td><td>Galatasaray</td></tr>
-
-                    <tr class="tarih-satir"><td colspan="4">19 Nisan 2026 - Pazar</td></tr>
-                    <tr><td>14:30</td><td>Kasımpaşa</td><td class="skor">-</td><td>Alanyaspor</td></tr>
-                    <tr><td>17:00</td><td>Samsunspor</td><td class="skor">-</td><td>Beşiktaş</td></tr>
-                    <tr><td>20:00</td><td>Trabzonspor</td><td class="skor">-</td><td>Başakşehir</td></tr>
+                    <tr class="highlight"><td>1</td><td>Galatasaray</td><td>30</td><td>71</td></tr>
+                    <tr class="highlight"><td>2</td><td>Fenerbahçe</td><td>30</td><td>68</td></tr>
+                    <tr><td>3</td><td>Trabzonspor</td><td>30</td><td>67</td></tr>
+                    <tr><td>4</td><td>Beşiktaş</td><td>30</td><td>65</td></tr>
+                    <tr><td>5</td><td>Başakşehir</td><td>30</td><td>55</td></tr>
+                    <tr><td>6</td><td>Göztepe</td><td>30</td><td>48</td></tr>
+                    <tr><td>7</td><td>Samsunspor</td><td>30</td><td>42</td></tr>
+                    <tr><td>8</td><td>Ç.Rizespor</td><td>30</td><td>37</td></tr>
+                    <tr class="team-konyaspor"><td>9</td><td>Konyaspor</td><td>30</td><td>37</td></tr>
+                    <tr><td>10</td><td>Gaziantep FK</td><td>30</td><td>37</td></tr>
+                    <tr><td>11</td><td>Kocaelispor</td><td>30</td><td>36</td></tr>
+                    <tr><td>12</td><td>Alanyaspor</td><td>30</td><td>33</td></tr>
+                    <tr><td>13</td><td>Kasımpaşa</td><td>30</td><td>31</td></tr>
+                    <tr><td>14</td><td>Antalyaspor</td><td>30</td><td>28</td></tr>
+                    <tr><td>15</td><td>Gençlerbirliği</td><td>30</td><td>25</td></tr>
+                    <tr><td>16</td><td>Eyüpspor</td><td>30</td><td>25</td></tr>
+                    <tr><td>17</td><td>Kayserispor</td><td>30</td><td>23</td></tr>
+                    <tr><td>18</td><td>Karagümrük</td><td>30</td><td>20</td></tr>
                 </tbody>
             </table>
-        </div>
+        </section>
 
-        <div id="arsiv" class="sayfa">
-            <h2>HABER ARŞİVİ</h2>
-            <p>29. Hafta: Liderlik yarışı tüm hızıyla devam ediyor.</p>
-            <p>28. Hafta: Puan durumundaki büyük değişimler ve transfer haberleri.</p>
-        </div>
+        <section id="fikstur" style="background:white; padding:15px; border-radius:8px; margin-top:20px;">
+            <h3 style="font-size:1em; margin-bottom:10px;">31. HAFTA FİKSTÜRÜ</h3>
+            <div style="font-size:0.8em;">
+                <p><strong>24 Nisan Cuma:</strong> Başakşehir - Kasımpaşa</p>
+                <hr>
+                <p><strong>25 Nisan Cumartesi:</strong><br>Eyüpspor - Gaziantep FK<br>Kayserispor - Ç.Rizespor<br>Göztepe - Antalyaspor</p>
+                <hr>
+                <p><strong>26 Nisan Pazar:</strong><br>Gençlerbirliği - Kocaelispor<br>Galatasaray - Fenerbahçe</p>
+                <hr>
+                <p><strong>27 Nisan Pazartesi:</strong><br>Alanyaspor - Samsunspor<br>Beşiktaş - Karagümrük<br>Konyaspor - Trabzonspor</p>
+            </div>
+        </section>
 
+        <div class="comment-box">
+            <h4>Analitik Yorum</h4>
+            <p style="font-size: 0.85em;">Puan tablosundaki sıkışıklık, her maçın final değerinde olduğunu gösteriyor. Özellikle düşme hattındaki takımların sürpriz sonuçları ligin dengesini her an değiştirebilir.</p>
+        </div>
     </div>
 </div>
 
 <footer>
-    &copy; 2026 YUSALIMEH HABER | Yusalimeh Projesidir.
+    &copy; 2026 YUSALIMEH HABER - Flashzone Projesi<br>
+    Profesyonel Spor Haberciliği ve Maç Analizleri
 </footer>
-
-<script>
-    function sekmeAc(sayfaId, element) {
-        var sayfalar = document.getElementsByClassName('sayfa');
-        for (var i = 0; i < sayfalar.length; i++) {
-            sayfalar[i].classList.remove('aktif');
-        }
-        var linkler = document.getElementsByClassName('menu-link');
-        for (var i = 0; i < linkler.length; i++) {
-            linkler[i].classList.remove('aktif');
-        }
-        document.getElementById(sayfaId).classList.add('aktif');
-        element.classList.add('aktif');
-    }
-</script>
-
-<script defer src="/_vercel/insights/script.js"></script>
 
 </body>
 </html>
