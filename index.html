@@ -3,213 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Süper Lig Puan Durumu(30.Hafta) ve Analizler|Yusalimeh Haber<title>
-    <head>
-    <meta name="google-site-verification" content="UecS2hqRYjS1GdUq8ZqnVfC1FFNu9Mo7bQXvnQq9_g" />
-    <meta name="description" content=Süper lig 30.hafta güncel puan durumu, takımların istatistikleri ve derbi analizi en güncel veriyleriyle Yusalimeh Haber'de.">
+    <title>SÜPER LİG PUAN DURUMU ve ANALİZLER | YUSALİMEH HABER</title>
+    <meta name="description" content="Süper Lig güncel puan durumu, fikstür ve analitik spor haberleri Yusalimeh Haber'de.">
     
     <style>
         :root {
-            --primary-blue: #002244;
-            --accent-yellow: #ffcc00;
-            --news-red: #d90429;
-            --bg-gray: #f0f2f5;
+            --primary: #001a33;
+            --accent: #ffcc00;
+            --light: #f4f7f6;
             --white: #ffffff;
         }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background-color: var(--bg-gray); color: #1c1e21; line-height: 1.6; }
-
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--light); color: #333; line-height: 1.6; }
+        
         /* Header & Navigasyon */
-        header { background: var(--primary-blue); color: var(--white); padding: 50px 20px; text-align: center; border-bottom: 6px solid var(--accent-yellow); }
-        header h1 { font-size: 3.2em; font-weight: 900; letter-spacing: -1px; }
+        header { background: var(--primary); color: var(--white); padding: 40px 20px; text-align: center; }
+        header h1 { margin: 0; font-size: 2.5rem; text-transform: uppercase; letter-spacing: 1px; }
         
-        nav { background: #001a33; position: sticky; top: 0; z-index: 1000; padding: 15px 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .nav-links { display: flex; justify-content: center; list-style: none; }
-        .nav-links a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; text-transform: uppercase; font-size: 0.9em; transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent-yellow); }
+        nav { background: #000d1a; padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
+        .nav-links { display: flex; justify-content: center; list-style: none; padding: 0; margin: 0; }
+        .nav-links li { margin: 0 15px; }
+        .nav-links a { color: var(--white); text-decoration: none; font-weight: bold; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
 
-        /* Grid Yapısı */
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        .container { max-width: 1100px; margin: 30px auto; padding: 20px; background: var(--white); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        section { display: none; } /* Bölümleri başta gizle */
+        section.active { display: block; } /* Sadece aktif olanı göster */
 
-        section { background: var(--white); padding: 30px; border-radius: 8px; margin-bottom: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-        h2 { color: var(--primary-blue); margin-bottom: 25px; border-left: 5px solid var(--accent-yellow); padding-left: 15px; text-transform: uppercase; }
+        /* Tablo Tasarımı */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: var(--primary); color: var(--white); }
+        tr:hover { background: #f1f1f1; }
 
-        /* Haber Kartı */
-        .main-news-title { font-size: 2.5em; color: var(--news-red); line-height: 1.2; margin-bottom: 20px; }
-        .news-text { font-size: 1.1em; margin-bottom: 20px; text-align: justify; }
+        /* Yorumlar Kısmı */
+        .comment-box { margin-top: 30px; padding: 20px; border-top: 2px solid var(--primary); }
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
+        button { background: var(--primary); color: var(--white); padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #003366; }
+        .comment-list { margin-top: 20px; background: #fafafa; padding: 15px; border-radius: 5px; }
 
-        /* Maç Analizi Tabloları */
-        .match-card { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
-        .match-header { display: flex; justify-content: space-between; font-weight: bold; color: var(--primary-blue); margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #eee; }
-        .stat-line { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #ccc; font-size: 0.95em; }
-        .stat-val { font-weight: bold; color: #555; }
-
-        /* Tahmini 11'ler */
-        .lineup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .team-box { padding: 15px; border-radius: 6px; text-align: center; }
-        .gs-box { background: #fdf2f4; border: 1px solid #d90429; }
-        .fb-box { background: #f0f7ff; border: 1px solid #002244; }
-        .lineup-list { font-size: 0.9em; font-weight: 600; color: #444; margin-top: 10px; }
-
-        /* Sağ Panel Tablolar */
-        .sidebar-item { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
-        .sidebar-item h3 { font-size: 1.1em; margin-bottom: 15px; color: var(--primary-blue); border-bottom: 3px solid var(--accent-yellow); display: inline-block; }
-        
-        table { width: 100%; border-collapse: collapse; font-size: 0.85em; }
-        th, td { padding: 10px 5px; border-bottom: 1px solid #eee; text-align: center; }
-        th { background: var(--primary-blue); color: white; }
-        .top-3 { background: #fffde7; font-weight: bold; }
-        .highlight-konya { color: #0d6832; font-weight: bold; background: #e8f5e9; }
-
-        /* Yorum Alanı */
-        .comment-area { margin-top: 30px; background: #f1f3f5; padding: 20px; border-radius: 8px; }
-        .comment-area h3 { margin-bottom: 15px; }
-        textarea { width: 100%; height: 100px; padding: 10px; border-radius: 5px; border: 1px solid #ccc; resize: none; }
-
-        footer { background: #1a1a1a; color: #888; text-align: center; padding: 40px; margin-top: 50px; }
-
-        @media (max-width: 850px) { .container { grid-template-columns: 1fr; } .lineup-grid { grid-template-columns: 1fr; } }
+        footer { text-align: center; padding: 20px; background: var(--primary); color: var(--white); margin-top: 50px; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Süper Lig Puan Durumu ve Analizler | Yusalimeh Haber</h1>
-    <p>Dünya Sporunun Analitik Merkezi</p>
+    <h1>SÜPER LİG PUAN DURUMU ve ANALİZLER</h1>
+    <p>YUSALİMEH HABER - Dünya Sporunun Analitik Merkezi</p>
 </header>
 
 <nav>
     <ul class="nav-links">
-        <li><a href="#haberler">Haberler</a></li>
-        <li><a href="#kupa-analiz">Kupa Analizi</a></li>
-        <li><a href="#tahminler">Tahmini 11'ler</a></li>
-        <li><a href="#puan-durumu">Puan Durumu</a></li>
-        <li><a href="#hakkimizda">Hakkımızda</a></li>
+        <li><a href="#" onclick="showSection('puan')">Puan Durumu</a></li>
+        <li><a href="#" onclick="showSection('fikstur')">Fikstür</a></li>
+        <li><a href="#" onclick="showSection('hakkinda')">Hakkında</a></li>
+        <li><a href="#" onclick="showSection('gizlilik')">Gizlilik Politikası</a></li>
+        <li><a href="#" onclick="showSection('yorumlar')">Yorum Yap</a></li>
     </ul>
 </nav>
 
 <div class="container">
-    <main>
-        <section id="haberler">
-            <h1 class="main-news-title">DERBİ İÇİN HEYECAN BAŞLADI!</h1>
-            <p class="news-text">
-                Beklenen, ligin en büyük derbilerinden birisi olan <strong>Galatasaray-Fenerbahçe</strong> derbisi artık geldi. Pazar günü Ali Sami Yen Spor Kompleksi Rams Park'ta oynanacak maçta ev sahibi Galatasaray oldu. Şampiyonluk yarışının kaderini belirleyecek bu kritik randevuda; <strong>Fenerbahçe kazanırsa puan farkı 1'e düşecek, Galatasaray kazanırsa 7'ye çıkacak.</strong> Tüm Türkiye bu analitik savaşa kilitlenmiş durumda.
-            </p>
-            <p><i>Fikstür, Süper Lig puan durumu ve tahmini ilk 11'ler alt bölümlerde detaylandırılmıştır.</i></p>
-        </section>
+    <section id="puan" class="active">
+        <h2>Süper Lig Güncel Puan Durumu</h2>
+        <table>
+            <thead>
+                <tr><th>Sıra</th><th>Takım</th><th>O</th><th>G</th><th>B</th><th>M</th><th>Puan</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Galatasaray</td><td>31</td><td>23</td><td>5</td><td>3</td><td>74</td></tr>
+                <tr><td>2</td><td>Fenerbahçe</td><td>31</td><td>19</td><td>10</td><td>2</td><td>67</td></tr>
+                </tbody>
+        </table>
+    </section>
 
-        <section id="kupa-analiz">
-            <h2>Ziraat Türkiye Kupası Analizleri</h2>
-            
-            <div class="match-card">
-                <div class="match-header">
-                    <span>Konyaspor 1 - 0 Fenerbahçe</span>
-                    <span>Kupa Maçı</span>
-                </div>
-                <div class="stat-line"><span>Toplam Şut</span> <span class="stat-val">9 - 24</span></div>
-                <div class="stat-line"><span>İsabetli Şut</span> <span class="stat-val">2 - 6</span></div>
-                <div class="stat-line"><span>Topla Oynama</span> <span class="stat-val">%36 - %64</span></div>
-                <div class="stat-line"><span>Beklenen Gol (xG)</span> <span class="stat-val">0.94 - 3.21</span></div>
-                <p style="margin-top:10px; font-size:0.9em; color:#666;">Fenerbahçe'nin yoğun baskısına rağmen Konyaspor kupada savunma disipliniyle turu geçen taraf oldu.</p>
-            </div>
+    <section id="fikstur">
+        <h2>Haftalık Maç Fikstürü</h2>
+        <p>Gelecek hafta maçları ve sonuçlar çok yakında burada listelenecek.</p>
+    </section>
 
-            <div class="match-card">
-                <div class="match-header">
-                    <span>Galatasaray 0 - 2 Gençlerbirliği</span>
-                    <span>Kupa Maçı</span>
-                </div>
-                <div class="stat-line"><span>Toplam Şut</span> <span class="stat-val">17 - 6</span></div>
-                <div class="stat-line"><span>İsabetli Şut</span> <span class="stat-val">6 - 4</span></div>
-                <div class="stat-line"><span>Topla Oynama</span> <span class="stat-val">%72 - %28</span></div>
-                <div class="stat-line"><span>Korner</span> <span class="stat-val">10 - 2</span></div>
-                <p style="margin-top:10px; font-size:0.9em; color:#666;">Galatasaray'ın kupa serüveni, Gençlerbirliği'nin etkili kontra atakları sonrası sona erdi.</p>
-            </div>
-        </section>
+    <section id="hakkinda">
+        <h2>Hakkımızda</h2>
+        <p>Yusalimeh Haber, sporu sadece skorlarla değil, analitik verilerle takip eden bağımsız bir platformdur.</p>
+    </section>
 
-        <section id="tahminler">
-            <h2>Tahmini İlk 11'ler (Derbi Özel)</h2>
-            <div class="lineup-grid">
-                <div class="team-box gs-box">
-                    <h4>GALATASARAY</h4>
-                    <p class="lineup-list">Uğurcan, Sallai, Sanchez, Abdülkerim, Eren, Torreira, Lemina, Yunus, Sane, Barış, Icardi</p>
-                </div>
-                <div class="team-box fb-box">
-                    <h4>FENERBAHÇE</h4>
-                    <p class="lineup-list">Ederson, Mert, Skriniar, Oosterwolde, Levent, İsmail, Guendouzi, Asensio, Musaba, Kerem, Duran</p>
-                </div>
-            </div>
-        </section>
+    <section id="gizlilik">
+        <h2>Gizlilik Politikası</h2>
+        <p>Verileriniz bizimle güvende. Çerez politikamız ve kullanıcı hakları hakkında detaylı bilgi.</p>
+    </section>
 
-        <section id="hakkimizda">
-            <h2>Yusalimeh Haber Hakkında</h2>
-            <p>Spor dünyasından en son gelişmeleri, transfer dedikodularını ve derinlemesine maç analizlerini burada bulabilirsiniz. Analitik bir perspektifle hazırladığımız içeriklerimizle sporun nabzını tutuyoruz.</p>
-        </section>
-
-        <div class="comment-area">
-            <h3>Okuyucu Yorumları</h3>
-            <textarea placeholder="Analitik görüşlerinizi paylaşın..."></textarea>
-            <button style="margin-top:10px; padding:10px 20px; background:var(--primary-blue); color:white; border:none; border-radius:4px; cursor:pointer;">Gönder</button>
+    <section id="yorumlar">
+        <h2>Ziyaretçi Yorumları</h2>
+        <div class="comment-box">
+            <input type="text" placeholder="Adınız">
+            <textarea placeholder="Yorumunuzu buraya yazın..."></textarea>
+            <button onclick="alert('Yorumunuz onay için gönderildi!')">Gönder</button>
         </div>
-    </main>
-
-    <aside>
-   <div class="sidebar-item" id="puan-durumu">
-    <h3>SÜPER LİG PUAN DURUMU (30. HAFTA)</h3>
-    <table>
-        <thead>
-            <tr><th>#</th><th>Takım</th><th>OM</th><th>P</th><th>AV</th></tr>
-        </thead>
-        <tbody>
-            <tr style="background: rgba(0, 123, 255, 0.1);"><td>1</td><td>Galatasaray</td><td>30</td><td>71</td><td>+46</td></tr>
-            <tr style="background: rgba(255, 193, 7, 0.1);"><td>2</td><td>Fenerbahçe</td><td>30</td><td>67</td><td>+38</td></tr>
-            <tr style="background: rgba(40, 167, 69, 0.1);"><td>3</td><td>Trabzonspor</td><td>30</td><td>65</td><td>+25</td></tr>
-            
-            <tr><td>4</td><td>Beşiktaş</td><td>30</td><td>55</td><td>+18</td></tr>
-            <tr><td>5</td><td>Başakşehir</td><td>30</td><td>48</td><td>+17</td></tr>
-            <tr><td>6</td><td>Göztepe</td><td>30</td><td>48</td><td>+10</td></tr>
-            <tr><td>7</td><td>Samsunspor</td><td>30</td><td>42</td><td>-3</td></tr>
-            <tr><td>8</td><td>Rizespor</td><td>30</td><td>37</td><td>-1</td></tr>
-            
-            <tr style="background: #fff3e0; font-weight: bold;"><td>9</td><td>Konyaspor</td><td>30</td><td>37</td><td>-3</td></tr>
-            
-            <tr><td>10</td><td>Gaziantep FK</td><td>30</td><td>37</td><td>-8</td></tr>
-            <tr><td>11</td><td>Kocaelispor</td><td>30</td><td>36</td><td>-9</td></tr>
-            <tr><td>12</td><td>Alanyaspor</td><td>30</td><td>33</td><td>0</td></tr>
-            <tr><td>13</td><td>Kasımpaşa</td><td>30</td><td>31</td><td>-12</td></tr>
-            <tr><td>14</td><td>Antalyaspor</td><td>30</td><td>28</td><td>-19</td></tr>
-            <tr><td>15</td><td>Gençlerbirliği</td><td>30</td><td>25</td><td>-15</td></tr>
-            
-            <tr style="background: #ffebee;"><td>16</td><td>Eyüpspor</td><td>30</td><td>25</td><td>-22</td></tr>
-            <tr style="background: #ffebee;"><td>17</td><td>Kayserispor</td><td>30</td><td>23</td><td>-36</td></tr>
-            <tr style="background: #ffebee;"><td>18</td><td>Karagümrük</td><td>30</td><td>20</td><td>-26</td></tr>
-        </tbody>
-    </table>
-    <div style="font-size: 0.75em; margin-top: 10px; color: #666; border-top: 1px solid #eee; pt: 5px;">
-        <p>🔵 UEFA CL | 🟠 EL Play-off | 🟢 Conf. L | 🔴 Küme Düşme</p>
-        <p><strong>Kaynak:</strong> TFF Resmi Verileri</p>
-    </div>
-</div>
-
-        <div class="sidebar-item">
-            <h3>31. HAFTA FİKSTÜRÜ</h3>
-            <div style="font-size:0.85em;">
-                <p><strong>24 Nisan:</strong> Başakşehir - Kasımpaşa</p>
-                <hr style="margin:8px 0; border:0; border-top:1px solid #eee;">
-                <p><strong>25 Nisan:</strong> Eyüpspor-Gaziantep / Kayseri-Rize / Göztepe-Antalya</p>
-                <hr style="margin:8px 0; border:0; border-top:1px solid #eee;">
-                <p><strong>26 Nisan:</strong> Gençlerbirliği-Kocaeli / <span style="color:red; font-weight:bold;">GS - FB (DERBİ)</span></p>
-                <hr style="margin:8px 0; border:0; border-top:1px solid #eee;">
-                <p><strong>27 Nisan:</strong> Alanya-Samsun / BJK-Karagümrük / Konya-Trabzon</p>
-            </div>
+        <div class="comment-list">
+            <strong>Admin:</strong> Hoş geldiniz! Yorumlarınızı buradan takip edebilirsiniz.
         </div>
-    </aside>
+    </section>
 </div>
 
 <footer>
-    <p><strong>YUSALIMEH HABER</strong> - Flashzone Haber Portalı Projesi</p>
-    <p>&copy; 2026 Tüm Hakları Saklıdır. Analitik Veri Sağlayıcısı: Yusalimeh AI</p>
+    <p>&copy; 2026 Yusalimeh Haber | Tüm Hakları Saklıdır.</p>
 </footer>
+
+<script>
+    function showSection(id) {
+        // Tüm bölümleri gizle
+        const sections = document.querySelectorAll('section');
+        sections.forEach(s => s.classList.remove('active'));
+        // Seçilen bölümü göster
+        document.getElementById(id).classList.add('active');
+    }
+</script>
 
 </body>
 </html>
