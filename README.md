@@ -1,3 +1,3 @@
-# Spor-D-nyas-
+# YUSALIMEH HABER-
 Dünyadan güncel spor gelişmelerini sunacağımız sitede amacımız sizlere doğru ve bilgili haberler sunmaktır.
 
