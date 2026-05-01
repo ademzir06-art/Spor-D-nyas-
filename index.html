@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SÜPER LİG PUAN DURUMU ve ANALİZLER | YUSALİMEH HABER</title>
-    <meta name="description" content="Süper Lig güncel puan durumu, fikstür ve analitik spor haberleri Yusalimeh Haber'de.">
+    <meta name="description" content="Süper Lig 31. hafta güncel puan durumu, 32. hafta fikstürü ve özel takım analizleri Yusalimeh Haber'de.">
     
     <style>
         :root {
@@ -12,37 +12,50 @@
             --accent: #ffcc00;
             --light: #f4f7f6;
             --white: #ffffff;
+            --border: #dee2e6;
         }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--light); color: #333; line-height: 1.6; }
+        body { font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; background: var(--light); color: #1c1e21; line-height: 1.6; }
         
-        /* Header & Navigasyon */
-        header { background: var(--primary); color: var(--white); padding: 40px 20px; text-align: center; }
-        header h1 { margin: 0; font-size: 2.5rem; text-transform: uppercase; letter-spacing: 1px; }
+        header { background: var(--primary); color: var(--white); padding: 50px 20px; text-align: center; }
+        header h1 { margin: 0; font-size: 2.8rem; text-transform: uppercase; font-weight: 900; }
+        header p { font-size: 1.2rem; opacity: 0.9; margin-top: 10px; }
         
-        nav { background: #000d1a; padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
-        .nav-links { display: flex; justify-content: center; list-style: none; padding: 0; margin: 0; }
-        .nav-links li { margin: 0 15px; }
-        .nav-links a { color: var(--white); text-decoration: none; font-weight: bold; transition: 0.3s; }
+        nav { background: #000d1a; padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .nav-links { display: flex; justify-content: center; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; }
+        .nav-links li { margin: 5px 15px; }
+        .nav-links a { color: var(--white); text-decoration: none; font-weight: bold; font-size: 0.95rem; transition: 0.3s; }
         .nav-links a:hover { color: var(--accent); }
 
-        .container { max-width: 1100px; margin: 30px auto; padding: 20px; background: var(--white); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        section { display: none; } /* Bölümleri başta gizle */
-        section.active { display: block; } /* Sadece aktif olanı göster */
+        .container { max-width: 1100px; margin: 30px auto; padding: 25px; background: var(--white); border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        section { display: none; }
+        section.active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Tablo Tasarımı */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background: var(--primary); color: var(--white); }
-        tr:hover { background: #f1f1f1; }
+        h2 { border-bottom: 3px solid var(--accent); display: inline-block; padding-bottom: 5px; margin-bottom: 20px; color: var(--primary); }
 
-        /* Yorumlar Kısmı */
-        .comment-box { margin-top: 30px; padding: 20px; border-top: 2px solid var(--primary); }
-        input, textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
-        button { background: var(--primary); color: var(--white); padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        button:hover { background: #003366; }
-        .comment-list { margin-top: 20px; background: #fafafa; padding: 15px; border-radius: 5px; }
+        /* Puan Durumu Tablosu */
+        .table-wrapper { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; min-width: 600px; }
+        th, td { padding: 14px; text-align: center; border-bottom: 1px solid var(--border); }
+        th { background: var(--primary); color: var(--white); font-weight: 600; }
+        tr:nth-child(even) { background-color: #f8f9fa; }
+        tr:hover { background-color: #fff4cc; transition: 0.2s; }
+        .top-four { border-left: 5px solid #28a745; }
+        .relegation { border-left: 5px solid #dc3545; }
 
-        footer { text-align: center; padding: 20px; background: var(--primary); color: var(--white); margin-top: 50px; }
+        /* Fikstür Tasarımı */
+        .match-card { display: flex; justify-content: space-between; align-items: center; padding: 15px; border: 1px solid var(--border); margin-bottom: 10px; border-radius: 8px; background: #fff; }
+        .team-name { font-weight: bold; width: 40%; }
+        .vs { color: #888; font-style: italic; }
+        .match-date { font-size: 0.85rem; color: #666; background: #eee; padding: 2px 8px; border-radius: 4px; }
+
+        /* Yorumlar */
+        .comment-box { margin-top: 30px; background: #f1f3f5; padding: 20px; border-radius: 10px; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid var(--border); border-radius: 6px; box-sizing: border-box; }
+        button { background: var(--primary); color: var(--white); padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: 900; transition: 0.3s; }
+        button:hover { background: #003366; transform: translateY(-2px); }
+
+        footer { text-align: center; padding: 30px; background: var(--primary); color: var(--white); margin-top: 50px; }
     </style>
 </head>
 <body>
@@ -54,52 +67,96 @@
 
 <nav>
     <ul class="nav-links">
-        <li><a href="#" onclick="showSection('puan')">Puan Durumu</a></li>
-        <li><a href="#" onclick="showSection('fikstur')">Fikstür</a></li>
-        <li><a href="#" onclick="showSection('hakkinda')">Hakkında</a></li>
-        <li><a href="#" onclick="showSection('gizlilik')">Gizlilik Politikası</a></li>
-        <li><a href="#" onclick="showSection('yorumlar')">Yorum Yap</a></li>
+        <li><a href="#" onclick="showSection('puan')">PUAN DURUMU</a></li>
+        <li><a href="#" onclick="showSection('fikstur')">FİKSTÜR</a></li>
+        <li><a href="#" onclick="showSection('hakkinda')">HAKKINDA</a></li>
+        <li><a href="#" onclick="showSection('gizlilik')">GİZLİLİK</a></li>
+        <li><a href="#" onclick="showSection('yorumlar')">YORUMLAR</a></li>
     </ul>
 </nav>
 
 <div class="container">
     <section id="puan" class="active">
-        <h2>Süper Lig Güncel Puan Durumu</h2>
-        <table>
-            <thead>
-                <tr><th>Sıra</th><th>Takım</th><th>O</th><th>G</th><th>B</th><th>M</th><th>Puan</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>1</td><td>Galatasaray</td><td>31</td><td>23</td><td>5</td><td>3</td><td>74</td></tr>
-                <tr><td>2</td><td>Fenerbahçe</td><td>31</td><td>19</td><td>10</td><td>2</td><td>67</td></tr>
+        <h2>31. Hafta Güncel Puan Durumu</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr><th>Sıra</th><th>Takım</th><th>O</th><th>G</th><th>B</th><th>M</th><th>AV</th><th>P</th></tr>
+                </thead>
+                <tbody>
+                    <tr class="top-four"><td>1</td><td>Galatasaray</td><td>31</td><td>23</td><td>5</td><td>3</td><td>49</td><td>74</td></tr>
+                    <tr class="top-four"><td>2</td><td>Fenerbahçe</td><td>31</td><td>19</td><td>10</td><td>2</td><td>35</td><td>67</td></tr>
+                    <tr class="top-four"><td>3</td><td>Trabzonspor</td><td>31</td><td>19</td><td>8</td><td>4</td><td>24</td><td>65</td></tr>
+                    <tr class="top-four"><td>4</td><td>Beşiktaş</td><td>31</td><td>16</td><td>8</td><td>7</td><td>18</td><td>56</td></tr>
+                    <tr><td>5</td><td>Başakşehir</td><td>31</td><td>14</td><td>9</td><td>8</td><td>21</td><td>51</td></tr>
+                    <tr><td>6</td><td>Göztepe</td><td>31</td><td>13</td><td>12</td><td>6</td><td>12</td><td>51</td></tr>
+                    <tr><td>7</td><td>Samsunspor</td><td>31</td><td>11</td><td>12</td><td>8</td><td>-2</td><td>45</td></tr>
+                    <tr><td>8</td><td>Konyaspor</td><td>31</td><td>10</td><td>10</td><td>11</td><td>-2</td><td>40</td></tr>
+                    <tr><td>9</td><td>Rizespor</td><td>31</td><td>9</td><td>10</td><td>12</td><td>-3</td><td>37</td></tr>
+                    <tr><td>10</td><td>Gaziantep FK</td><td>31</td><td>9</td><td>10</td><td>12</td><td>-11</td><td>37</td></tr>
+                    <tr><td>11</td><td>Kocaelispor</td><td>31</td><td>9</td><td>9</td><td>13</td><td>-10</td><td>36</td></tr>
+                    <tr><td>12</td><td>Alanyaspor</td><td>31</td><td>6</td><td>15</td><td>10</td><td>-1</td><td>33</td></tr>
+                    <tr><td>13</td><td>Kasımpaşa</td><td>31</td><td>7</td><td>10</td><td>14</td><td>-16</td><td>31</td></tr>
+                    <tr class="relegation"><td>14</td><td>Gençlerbirliği</td><td>31</td><td>7</td><td>7</td><td>17</td><td>-14</td><td>28</td></tr>
+                    <tr class="relegation"><td>15</td><td>Eyüpspor</td><td>31</td><td>7</td><td>7</td><td>17</td><td>-19</td><td>28</td></tr>
+                    <tr class="relegation"><td>16</td><td>Antalyaspor</td><td>31</td><td>7</td><td>7</td><td>17</td><td>-21</td><td>28</td></tr>
+                    <tr class="relegation"><td>17</td><td>Kayserispor</td><td>31</td><td>5</td><td>11</td><td>15</td><td>-34</td><td>26</td></tr>
+                    <tr class="relegation"><td>18</td><td>Karagümrük</td><td>31</td><td>5</td><td>6</td><td>20</td><td>-26</td><td>21</td></tr>
                 </tbody>
-        </table>
+            </table>
+        </div>
     </section>
 
     <section id="fikstur">
-        <h2>Haftalık Maç Fikstürü</h2>
-        <p>Gelecek hafta maçları ve sonuçlar çok yakında burada listelenecek.</p>
+        <h2>32. Hafta Maç Programı</h2>
+        <div class="match-card">
+            <span class="team-name" style="text-align:right">Rizespor</span>
+            <span class="vs">vs</span>
+            <span class="team-name">Konyaspor</span>
+            <span class="match-date">Cuma</span>
+        </div>
+        <div class="match-card">
+            <span class="team-name" style="text-align:right">Gaziantep FK</span>
+            <span class="vs">vs</span>
+            <span class="team-name">Beşiktaş</span>
+            <span class="match-date">Cuma</span>
+        </div>
+        <div class="match-card" style="background:#fffcf0; border: 1px solid #ffcc00">
+            <span class="team-name" style="text-align:right">Fenerbahçe</span>
+            <span class="vs">vs</span>
+            <span class="team-name">Başakşehir</span>
+            <span class="match-date">Cumartesi</span>
+        </div>
+        <div class="match-card" style="background:#fff4f4">
+            <span class="team-name" style="text-align:right">Samsunspor</span>
+            <span class="vs">vs</span>
+            <span class="team-name">Galatasaray</span>
+            <span class="match-date">Cumartesi</span>
+        </div>
+        <p style="font-size:0.8rem; text-align:center; color:#888;">* Tüm maçlar Türkiye saati ile listelenmiştir.</p>
     </section>
 
     <section id="hakkinda">
         <h2>Hakkımızda</h2>
-        <p>Yusalimeh Haber, sporu sadece skorlarla değil, analitik verilerle takip eden bağımsız bir platformdur.</p>
+        <p><strong>Yusalimeh Haber</strong>, modern futbolun analitik bir bakış açısıyla yorumlandığı, veri odaklı bir spor portalıdır. Amacımız, taraftarlara sadece skorları değil, maçların arkasındaki taktiksel derinliği sunmaktır.</p>
     </section>
 
     <section id="gizlilik">
         <h2>Gizlilik Politikası</h2>
-        <p>Verileriniz bizimle güvende. Çerez politikamız ve kullanıcı hakları hakkında detaylı bilgi.</p>
+        <p>Kullanıcılarımızın gizliliği bizim için önceliktir. Sitemizde toplanan veriler sadece kullanıcı deneyimini iyileştirmek amacıyla kullanılır ve üçüncü taraflarla paylaşılmaz. Çerezler (cookies), site içi tercihlerini hatırlamak için kullanılmaktadır.</p>
     </section>
 
     <section id="yorumlar">
         <h2>Ziyaretçi Yorumları</h2>
         <div class="comment-box">
-            <input type="text" placeholder="Adınız">
-            <textarea placeholder="Yorumunuzu buraya yazın..."></textarea>
-            <button onclick="alert('Yorumunuz onay için gönderildi!')">Gönder</button>
+            <input type="text" id="userName" placeholder="Adınız">
+            <textarea id="userComment" rows="4" placeholder="Analiziniz veya yorumunuz nedir?"></textarea>
+            <button onclick="addComment()">Yorum Gönder</button>
         </div>
-        <div class="comment-list">
-            <strong>Admin:</strong> Hoş geldiniz! Yorumlarınızı buradan takip edebilirsiniz.
+        <div id="commentList" style="margin-top:20px;">
+            <div style="background:#eee; padding:10px; border-radius:5px; margin-bottom:10px;">
+                <strong>Admin:</strong> Analitik Spor Portalımıza hoş geldiniz! Yorumlarınızı bekliyoruz.
+            </div>
         </div>
     </section>
 </div>
@@ -110,11 +167,27 @@
 
 <script>
     function showSection(id) {
-        // Tüm bölümleri gizle
         const sections = document.querySelectorAll('section');
         sections.forEach(s => s.classList.remove('active'));
-        // Seçilen bölümü göster
         document.getElementById(id).classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function addComment() {
+        const name = document.getElementById('userName').value;
+        const msg = document.getElementById('userComment').value;
+        if(name && msg) {
+            const list = document.getElementById('commentList');
+            const newComment = document.createElement('div');
+            newComment.style = "background:#eee; padding:10px; border-radius:5px; margin-bottom:10px; border-left:4px solid #001a33;";
+            newComment.innerHTML = "<strong>" + name + ":</strong> " + msg;
+            list.prepend(newComment);
+            document.getElementById('userName').value = '';
+            document.getElementById('userComment').value = '';
+            alert('Yorumunuz başarıyla eklendi!');
+        } else {
+            alert('Lütfen tüm alanları doldurun.');
+        }
     }
 </script>
 
