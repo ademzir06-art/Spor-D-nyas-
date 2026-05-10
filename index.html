@@ -1,200 +1,194 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVTMTK2FLS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-EVTMTK2FLS');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SÜPER LİG PUAN DURUMU ve ANALİZLER | YUSALİMEH HABER</title>
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Süper lig puan durumu ve Analizler|YUSALIMEH HABER",
-  "url": "https://spor-d-nyas-vnly.vercel.app/"
-}
-</script><meta name="description" content="Süper Lig 31. hafta güncel puan durumu, 32. hafta fikstürü ve özel takım analizleri Yusalimeh Haber'de.">
+    <title>YUSALİMEH GLOBAL | 2025/26 Küresel Stratejik Veri Portalı</title>
     
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;700;900&display=swap');
+        
         :root {
-            --primary: #001a33;
-            --accent: #ffcc00;
-            --light: #f4f7f6;
-            --white: #ffffff;
-            --border: #dee2e6;
+            --navy: #020617;
+            --gold: #c5a059;
+            --dark-glass: rgba(15, 23, 42, 0.8);
+            --border: rgba(197, 160, 89, 0.15);
+            --neon-green: #10b981;
+            --neon-red: #ef4444;
         }
-        body { font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; background: var(--light); color: #1c1e21; line-height: 1.6; }
-        
-        header { background: var(--primary); color: var(--white); padding: 50px 20px; text-align: center; }
-        header h1 { margin: 0; font-size: 2.8rem; text-transform: uppercase; font-weight: 900; }
-        header p { font-size: 1.2rem; opacity: 0.9; margin-top: 10px; }
-        
-        nav { background: #000d1a; padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        .nav-links { display: flex; justify-content: center; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; }
-        .nav-links li { margin: 5px 15px; }
-        .nav-links a { color: var(--white); text-decoration: none; font-weight: bold; font-size: 0.95rem; transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent); }
 
-        .container { max-width: 1100px; margin: 30px auto; padding: 25px; background: var(--white); border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-        section { display: none; }
-        section.active { display: block; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--navy); color: #f1f5f9; margin: 0; overflow-x: hidden; }
 
-        h2 { border-bottom: 3px solid var(--accent); display: inline-block; padding-bottom: 5px; margin-bottom: 20px; color: var(--primary); }
+        /* ANALİTİK BİLDİRİM SİSTEMİ */
+        #h-notif { position: fixed; top: -100px; left: 0; width: 100%; background: var(--gold); color: #000; padding: 15px; text-align: center; font-weight: 900; z-index: 9999; transition: 0.7s cubic-bezier(0.23, 1, 0.32, 1); }
 
-        /* Puan Durumu Tablosu */
-        .table-wrapper { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; min-width: 600px; }
-        th, td { padding: 14px; text-align: center; border-bottom: 1px solid var(--border); }
-        th { background: var(--primary); color: var(--white); font-weight: 600; }
-        tr:nth-child(even) { background-color: #f8f9fa; }
-        tr:hover { background-color: #fff4cc; transition: 0.2s; }
-        .top-four { border-left: 5px solid #28a745; }
-        .relegation { border-left: 5px solid #dc3545; }
+        /* NAVIGATION - CORPORATE STYLE */
+        nav { background: rgba(2, 6, 23, 0.98); border-bottom: 1px solid var(--border); padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(20px); }
+        .brand { font-size: 2.2rem; font-weight: 900; letter-spacing: -2px; }
+        .brand span { color: var(--gold); }
+        .nav-links a { color: #94a3b8; text-decoration: none; margin-left: 30px; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; transition: 0.3s; }
+        .nav-links a:hover { color: var(--gold); text-shadow: 0 0 15px var(--gold); }
 
-        /* Fikstür Tasarımı */
-        .match-card { display: flex; justify-content: space-between; align-items: center; padding: 15px; border: 1px solid var(--border); margin-bottom: 10px; border-radius: 8px; background: #fff; }
-        .team-name { font-weight: bold; width: 40%; }
-        .vs { color: #888; font-style: italic; }
-        .match-date { font-size: 0.85rem; color: #666; background: #eee; padding: 2px 8px; border-radius: 4px; }
+        /* MASTER LAYOUT */
+        .portal-container { display: grid; grid-template-columns: 280px 1fr 320px; gap: 30px; padding: 50px 5%; }
 
-        /* Yorumlar */
-        .comment-box { margin-top: 30px; background: #f1f3f5; padding: 20px; border-radius: 10px; }
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid var(--border); border-radius: 6px; box-sizing: border-box; }
-        button { background: var(--primary); color: var(--white); padding: 12px 25px; border: none; border-radius: 6px; cursor: pointer; font-weight: 900; transition: 0.3s; }
-        button:hover { background: #003366; transform: translateY(-2px); }
+        /* SİDEBAR - MULTI LEAGUE SELECTOR */
+        .sidebar { background: var(--dark-glass); border: 1px solid var(--border); border-radius: 20px; padding: 25px; height: fit-content; position: sticky; top: 120px; }
+        .sidebar h4 { color: var(--gold); font-size: 0.7rem; text-transform: uppercase; margin-bottom: 25px; letter-spacing: 2px; }
+        .l-btn { width: 100%; padding: 16px; background: none; border: 1px solid transparent; color: #94a3b8; text-align: left; cursor: pointer; border-radius: 12px; margin-bottom: 10px; transition: 0.3s; font-weight: 600; }
+        .l-btn:hover { background: rgba(197, 160, 89, 0.1); color: var(--gold); }
+        .l-btn.active { background: var(--gold); color: #000; box-shadow: 0 10px 20px rgba(197, 160, 89, 0.2); }
 
-        footer { text-align: center; padding: 30px; background: var(--primary); color: var(--white); margin-top: 50px; }
+        /* MAIN CONTENT AREA */
+        .data-hub { background: var(--dark-glass); border: 1px solid var(--border); border-radius: 30px; padding: 45px; box-shadow: 0 40px 100px rgba(0,0,0,0.5); }
+        .hub-header h1 { font-size: 3.5rem; margin: 0; font-weight: 900; }
+        .hub-header p { opacity: 0.5; font-size: 1.1rem; margin-top: 10px; }
+
+        /* DEVASA VERİ TABLOLARI */
+        .table-wrapper { margin-top: 40px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.01); }
+        th { background: rgba(197, 160, 89, 0.05); color: var(--gold); padding: 20px; text-align: left; font-size: 0.7rem; text-transform: uppercase; }
+        td { padding: 18px 20px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 1rem; }
+        .rank { font-weight: 900; color: var(--gold); width: 40px; }
+        .form-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+        .win { background: var(--neon-green); box-shadow: 0 0 10px var(--neon-green); }
+
+        /* FİKSTÜR MERKEZİ */
+        .fixture-grid { display: grid; gap: 15px; margin-top: 30px; }
+        .fixture-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 20px; border-radius: 15px; display: flex; justify-content: space-between; font-weight: 600; }
+
+        /* TRANSFER VE RADAR */
+        .radar-card { background: var(--dark-glass); border: 1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 30px; }
+        .radar-card h5 { color: var(--gold); text-transform: uppercase; font-size: 0.75rem; margin-top: 0; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+        .t-news { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .t-news b { font-size: 0.9rem; color: #fff; }
+        .t-news p { font-size: 0.75rem; color: #64748b; margin: 5px 0; }
+
+        /* YORUM VE ETKİLEŞİM */
+        .interaction { grid-column: span 3; background: var(--dark-glass); border: 1px solid var(--border); border-radius: 30px; padding: 50px; margin-top: 50px; }
+        .c-input { width: 100%; background: #000; border: 1px solid var(--border); border-radius: 15px; padding: 20px; color: #fff; font-family: inherit; margin-top: 20px; }
+        .c-btn { background: var(--gold); color: #000; border: none; padding: 20px 50px; border-radius: 12px; font-weight: 900; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+
+        /* KURUMSAL DEV METİNLER (SAYFAYI UZATAN KISIM) */
+        .legal-section { grid-column: span 3; padding: 100px 0; border-top: 1px solid var(--border); }
+        .legal-box { font-size: 0.9rem; color: #64748b; line-height: 2; }
+        .legal-box h2 { color: var(--gold); margin-top: 50px; }
+
+        footer { padding: 100px 5%; text-align: center; border-top: 1px solid var(--border); background: #010409; }
     </style>
 </head>
-<body>
+<body onload="initPortal()">
 
-<header>
-    <h1>SÜPER LİG PUAN DURUMU ve ANALİZLER</h1>
-    <p>YUSALİMEH HABER - Dünya Sporunun Analitik Merkezi</p>
-</header>
+<div id="h-notif">YUSALİMEH GLOBAL STRATEJİK VERİ AKIŞI AKTİF | G-EVTMTK2FLS</div>
 
 <nav>
-    <ul class="nav-links">
-        <li><a href="#" onclick="showSection('puan')">PUAN DURUMU</a></li>
-        <li><a href="#" onclick="showSection('fikstur')">FİKSTÜR</a></li>
-        <li><a href="#" onclick="showSection('hakkinda')">HAKKINDA</a></li>
-        <li><a href="#" onclick="showSection('gizlilik')">GİZLİLİK</a></li>
-        <li><a href="#" onclick="showSection('yorumlar')">YORUMLAR</a></li>
-    </ul>
+    <div class="brand">YUSALİMEH<span>GLOBAL</span></div>
+    <div class="nav-links">
+        <a href="#hub">Veri Merkezi</a>
+        <a href="#fixtures">Fikstür</a>
+        <a href="#legal">Kurumsal Mevzuat</a>
+        <a href="https://github.com/KullaniciAdin">GitHub</a>
+    </div>
 </nav>
 
-<div class="container">
-    <section id="puan" class="active">
-        <h2>31. Hafta Güncel Puan Durumu</h2>
+<div class="portal-container">
+    <div class="sidebar">
+        <h4>Küresel Ligler</h4>
+        <button class="l-btn active">Premier League</button>
+        <button class="l-btn">Trendyol Süper Lig</button>
+        <button class="l-btn">La Liga EA Sports</button>
+        <button class="l-btn">Serie A Enilive</button>
+        <button class="l-btn">Bundesliga</button>
+        <button class="l-btn">Ligue 1 McDonald's</button>
+        <button class="l-btn">Eredivisie</button>
+        <button class="l-btn">Liga Portugal</button>
+        <button class="l-btn">MLS Soccer</button>
+        <button class="l-btn">Saudi Pro League</button>
+    </div>
+
+    <div class="data-hub" id="hub">
+        <div class="hub-header">
+            <h1>Premier League</h1>
+            <p>Sezon: 2025/2026 | Güncelleme: 10 Mayıs 2026</p>
+        </div>
+
         <div class="table-wrapper">
             <table>
                 <thead>
-                    <tr><th>Sıra</th><th>Takım</th><th>O</th><th>G</th><th>B</th><th>M</th><th>AV</th><th>P</th></tr>
+                    <tr><th>Sıra</th><th>Kulüp</th><th>O</th><th>G</th><th>B</th><th>M</th><th>AV</th><th>P</th><th>Form</th></tr>
                 </thead>
                 <tbody>
-                    <tr class="top-four"><td>1</td><td>Galatasaray</td><td>31</td><td>23</td><td>5</td><td>3</td><td>49</td><td>74</td></tr>
-                    <tr class="top-four"><td>2</td><td>Fenerbahçe</td><td>31</td><td>19</td><td>10</td><td>2</td><td>35</td><td>67</td></tr>
-                    <tr class="top-four"><td>3</td><td>Trabzonspor</td><td>31</td><td>19</td><td>8</td><td>4</td><td>24</td><td>65</td></tr>
-                    <tr class="top-four"><td>4</td><td>Beşiktaş</td><td>31</td><td>16</td><td>8</td><td>7</td><td>18</td><td>56</td></tr>
-                    <tr><td>5</td><td>Başakşehir</td><td>31</td><td>14</td><td>9</td><td>8</td><td>21</td><td>51</td></tr>
-                    <tr><td>6</td><td>Göztepe</td><td>31</td><td>13</td><td>12</td><td>6</td><td>12</td><td>51</td></tr>
-                    <tr><td>7</td><td>Samsunspor</td><td>31</td><td>11</td><td>12</td><td>8</td><td>-2</td><td>45</td></tr>
-                    <tr><td>8</td><td>Konyaspor</td><td>31</td><td>10</td><td>10</td><td>11</td><td>-2</td><td>40</td></tr>
-                    <tr><td>9</td><td>Rizespor</td><td>31</td><td>9</td><td>10</td><td>12</td><td>-3</td><td>37</td></tr>
-                    <tr><td>10</td><td>Gaziantep FK</td><td>31</td><td>9</td><td>10</td><td>12</td><td>-11</td><td>37</td></tr>
-                    <tr><td>11</td><td>Kocaelispor</td><td>31</td><td>9</td><td>9</td><td>13</td><td>-10</td><td>36</td></tr>
-                    <tr><td>12</td><td>Alanyaspor</td><td>31</td><td>6</td><td>15</td><td>10</td><td>-1</td><td>33</td></tr>
-                    <tr><td>13</td><td>Kasımpaşa</td><td>31</td><td>7</td><td>10</td><td>14</td><td>-16</td><td>31</td></tr>
-                    <tr class="relegation"><td>14</td><td>Gençlerbirliği</td><td>31</td><td>7</td><td>7</td><td>17</td><td>-14</td><td>28</td></tr>
-                    <tr class="relegation"><td>15</td><td>Eyüpspor</td><td>31</td><td>7</td><td>7</td><td>17</td><td>-19</td><td>28</td></tr>
-                    <tr class="relegation"><td>16</td><td>Antalyaspor</td><td>31</td><td>7</td><td>7</td><td>17</td><td>-21</td><td>28</td></tr>
-                    <tr class="relegation"><td>17</td><td>Kayserispor</td><td>31</td><td>5</td><td>11</td><td>15</td><td>-34</td><td>26</td></tr>
-                    <tr class="relegation"><td>18</td><td>Karagümrük</td><td>31</td><td>5</td><td>6</td><td>20</td><td>-26</td><td>21</td></tr>
-                </tbody>
+                    <tr><td class="rank">1</td><td><b>Arsenal</b></td><td>35</td><td>23</td><td>7</td><td>5</td><td>+41</td><td><b>76</b></td><td><span class="form-dot win"></span><span class="form-dot win"></span><span class="form-dot win"></span></td></tr>
+                    <tr><td class="rank">2</td><td><b>Manchester City</b></td><td>35</td><td>22</td><td>8</td><td>5</td><td>+48</td><td><b>74</b></td><td><span class="form-dot win"></span><span class="form-dot win"></span><span class="form-dot"></span></td></tr>
+                    </tbody>
             </table>
         </div>
-    </section>
 
-    <section id="fikstur">
-        <h2>32. Hafta Maç Programı</h2>
-        <div class="match-card">
-            <span class="team-name" style="text-align:right">Rizespor</span>
-            <span class="vs">vs</span>
-            <span class="team-name">Konyaspor</span>
-            <span class="match-date">Cuma</span>
-        </div>
-        <div class="match-card">
-            <span class="team-name" style="text-align:right">Gaziantep FK</span>
-            <span class="vs">vs</span>
-            <span class="team-name">Beşiktaş</span>
-            <span class="match-date">Cuma</span>
-        </div>
-        <div class="match-card" style="background:#fffcf0; border: 1px solid #ffcc00">
-            <span class="team-name" style="text-align:right">Fenerbahçe</span>
-            <span class="vs">vs</span>
-            <span class="team-name">Başakşehir</span>
-            <span class="match-date">Cumartesi</span>
-        </div>
-        <div class="match-card" style="background:#fff4f4">
-            <span class="team-name" style="text-align:right">Samsunspor</span>
-            <span class="vs">vs</span>
-            <span class="team-name">Galatasaray</span>
-            <span class="match-date">Cumartesi</span>
-        </div>
-        <p style="font-size:0.8rem; text-align:center; color:#888;">* Tüm maçlar Türkiye saati ile listelenmiştir.</p>
-    </section>
-
-    <section id="hakkinda">
-        <h2>Hakkımızda</h2>
-        <p><strong>Yusalimeh Haber</strong>, modern futbolun analitik bir bakış açısıyla yorumlandığı, veri odaklı bir spor portalıdır. Amacımız, taraftarlara sadece skorları değil, maçların arkasındaki taktiksel derinliği sunmaktır.</p>
-    </section>
-
-    <section id="gizlilik">
-        <h2>Gizlilik Politikası</h2>
-        <p>Kullanıcılarımızın gizliliği bizim için önceliktir. Sitemizde toplanan veriler sadece kullanıcı deneyimini iyileştirmek amacıyla kullanılır ve üçüncü taraflarla paylaşılmaz. Çerezler (cookies), site içi tercihlerini hatırlamak için kullanılmaktadır.</p>
-    </section>
-
-    <section id="yorumlar">
-        <h2>Ziyaretçi Yorumları</h2>
-        <div class="comment-box">
-            <input type="text" id="userName" placeholder="Adınız">
-            <textarea id="userComment" rows="4" placeholder="Analiziniz veya yorumunuz nedir?"></textarea>
-            <button onclick="addComment()">Yorum Gönder</button>
-        </div>
-        <div id="commentList" style="margin-top:20px;">
-            <div style="background:#eee; padding:10px; border-radius:5px; margin-bottom:10px;">
-                <strong>Admin:</strong> Analitik Spor Portalımıza hoş geldiniz! Yorumlarınızı bekliyoruz.
+        <h2 style="margin-top: 60px;" id="fixtures">Stratejik Fikstür</h2>
+        <div class="fixture-grid">
+            <div class="fixture-item"><span>Arsenal</span> <span>vs</span> <span>West Ham</span> <span>10.05 / 18:00</span></div>
+            <div class="fixture-item"><span>Man City</span> <span>vs</span> <span>Wolves</span> <span>10.05 / 20:30</span></div>
+            <div class="fixture-item"><span>Liverpool</span> <span>vs</span> <span>Aston Villa</span> <span>11.05 / 15:30</span></div>
             </div>
+    </div>
+
+    <div class="radar">
+        <div class="radar-card">
+            <h5>TRANSFER RADARI</h5>
+            <div class="t-news"><b>Kylian Mbappé</b><p>PSG ➔ Real Madrid (Onaylandı)</p></div>
+            <div class="t-news"><b>Victor Osimhen</b><p>Napoli ➔ Chelsea (Görüşmede)</p></div>
+            <div class="t-news"><b>Arda Güler</b><p>Real Madrid ➔ Bayer Leverkusen (Kiralık-Dedikodu)</p></div>
         </div>
-    </section>
+
+        <div class="radar-card">
+            <h5>ANALİTİK BİLGİ</h5>
+            <p style="font-size: 0.8rem; line-height: 1.6;">Konya Veri Merkezi, Süper Lig takımlarının pas isabet oranlarını kuantum algoritmalarıyla yeniden hesapladı.</p>
+        </div>
+    </div>
+
+    <div class="interaction">
+        <h2>Yönetim Kurulu Raporlama Paneli</h2>
+        <p>Veri merkezimiz hakkındaki görüşlerinizi veya eklenmesini istediğiniz stratejik bilgileri buraya yazın.</p>
+        <textarea class="c-input" rows="6" placeholder="Raporunuzu detaylandırın..."></textarea>
+        <button class="c-btn">RAPORU SİSTEME GÖNDER</button>
+    </div>
+
+    <div class="legal-section" id="legal">
+        <div class="legal-box">
+            <h2>1. Veri Güvenliği ve Gizlilik Sözleşmesi (KVKK)</h2>
+            <p>Yusalimeh Global Holding, 6698 Sayılı Kişisel Verilerin Korunması Kanunu uyarınca kullanıcı verilerini en yüksek analitik standartlarda işlemektedir. Google Analytics 4 (GA4) entegrasyonumuz, kullanıcı hareketlerini tamamen anonimleştirerek raporlamaktadır...</p>
+            <p>Bu sözleşme, Konya ve Erzurum merkezli veri sunucularımızın güvenliğini kapsar. Her bir tıklama, holdingimizin stratejik planlama departmanı tarafından incelenmektedir...</p>
+            
+            <h2>2. Kullanım Koşulları ve Hukuki Şartlar</h2>
+            <p>Bu portalda paylaşılan spor verileri, Avrupa'nın önde gelen veri sağlayıcılarından alınmaktadır. Arsenal'ın 76 puanlık liderliği ve Galatasaray'ın 87 puanlık şampiyonluk yolculuğu, Yusuf Eymen tarafından manuel ve dijital olarak doğrulanmıştır...</p>
+            
+            <h2>3. Çerez ve İzleme Politikası</h2>
+            <p>G-EVTMTK2FLS ölçüm kimliği ile sitemizdeki her kaydırma (scroll) hareketi, bekleme süresi ve etkileşim oranı takip edilmektedir. Bu, holdingimizin dijital zekasını geliştirmek adına zorunlu bir süreçtir...</p>
+            
+            </div>
+    </div>
 </div>
 
 <footer>
-    <p>&copy; 2026 Yusalimeh Haber | Tüm Hakları Saklıdır.</p>
+    <div class="brand">YUSALİMEH<span>GLOBAL</span></div>
+    <p>Konya / Türkiye Global Merkezi | Stratejik Analiz Departmanı</p>
+    <p style="opacity: 0.3; font-size: 0.7rem;">© 2026 Yusuf Eymen. Tüm Hakları Stratejik Olarak Koruma Altındadır.</p>
 </footer>
 
 <script>
-    function showSection(id) {
-        const sections = document.querySelectorAll('section');
-        sections.forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        window.scrollTo(0,0);
-    }
-
-    function addComment() {
-        const name = document.getElementById('userName').value;
-        const msg = document.getElementById('userComment').value;
-        if(name && msg) {
-            const list = document.getElementById('commentList');
-            const newComment = document.createElement('div');
-            newComment.style = "background:#eee; padding:10px; border-radius:5px; margin-bottom:10px; border-left:4px solid #001a33;";
-            newComment.innerHTML = "<strong>" + name + ":</strong> " + msg;
-            list.prepend(newComment);
-            document.getElementById('userName').value = '';
-            document.getElementById('userComment').value = '';
-            alert('Yorumunuz başarıyla eklendi!');
-        } else {
-            alert('Lütfen tüm alanları doldurun.');
-        }
+    function initPortal() {
+        const notif = document.getElementById('h-notif');
+        setTimeout(() => { notif.style.top = '0'; }, 1000);
+        setTimeout(() => { notif.style.top = '-100px'; }, 7000); 
     }
 </script>
 
