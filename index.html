@@ -1,628 +1,211 @@
-Trophy, import React, { useState, useEffect, useMemo } from 'react';
-import { 
-  Zap, 
-  Newspaper, 
-  Search, 
-  CloudSun, 
-  Globe, 
-  TrendingUp, 
-  ShieldAlert, 
-  ExternalLink, 
-  Github, 
-  Activity, 
-  Compass, 
-  ChevronRight,
-  RefreshCw,
-  BarChart3,
-  Layers
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Güncel Spor Veri Portalı ve Lig Puan Durumu | 2026/27</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 font-sans p-6">
 
-// Comprehensive Data for 6 Major Leagues/Competitions
-const LEAGUE_DATA = {
-  superlig: {
-    id: 'superlig',
-    name: 'Trendyol Süper Lig',
-    country: '🇹🇷 Türkiye',
-    season: '2025/26',
-    teams: [
-      { rank: 1, team: 'Galatasaray', p: 34, w: 27, d: 6, l: 1, gf: 89, ga: 26, gd: '+63', pts: 87 },
-      { rank: 2, team: 'Fenerbahçe', p: 34, w: 25, d: 7, l: 2, gf: 84, ga: 31, gd: '+53', pts: 82 },
-      { rank: 3, team: 'Trabzonspor', p: 34, w: 19, d: 8, l: 7, gf: 62, ga: 38, gd: '+24', pts: 65 },
-      { rank: 4, team: 'Beşiktaş', p: 34, w: 18, d: 9, l: 7, gf: 60, ga: 39, gd: '+21', pts: 63 },
-      { rank: 5, team: 'Başakşehir FK', p: 34, w: 16, d: 9, l: 9, gf: 54, ga: 41, gd: '+13', pts: 57 },
-      { rank: 6, team: 'Kasımpaşa', p: 34, w: 14, d: 11, l: 9, gf: 58, ga: 52, gd: '+6', pts: 53 },
-      { rank: 7, team: 'Sivasspor', p: 34, w: 14, d: 9, l: 11, gf: 47, ga: 49, gd: '-2', pts: 51 },
-      { rank: 8, team: 'Alanyaspor', p: 34, w: 12, d: 13, l: 9, gf: 49, ga: 46, gd: '+3', pts: 49 },
-      { rank: 9, team: 'Rizespor', p: 34, w: 14, d: 6, l: 14, gf: 48, ga: 54, gd: '-6', pts: 48 },
-      { rank: 10, team: 'Antalyaspor', p: 34, w: 12, d: 9, l: 13, gf: 42, ga: 48, gd: '-6', pts: 45 },
-      { rank: 11, team: 'Gaziantep FK', p: 34, w: 12, d: 8, l: 14, gf: 46, ga: 51, gd: '-5', pts: 44 },
-      { rank: 12, team: 'Adana Demirspor', p: 34, w: 10, d: 14, l: 10, gf: 51, ga: 50, gd: '+1', pts: 44 },
-      { rank: 13, team: 'Samsunspor', p: 34, w: 11, d: 10, l: 13, gf: 41, ga: 48, gd: '-7', pts: 43 },
-      { rank: 14, team: 'Kayserispor', p: 34, w: 10, d: 12, l: 12, gf: 40, ga: 51, gd: '-11', pts: 42 },
-      { rank: 15, team: 'Konyaspor', p: 34, w: 9, d: 14, l: 11, gf: 38, ga: 47, gd: '-9', pts: 41 },
-      { rank: 16, team: 'Ankaragücü', p: 34, w: 8, d: 14, l: 12, gf: 43, ga: 48, gd: '-5', pts: 38 },
-      { rank: 17, team: 'Fatih Karagümrük', p: 34, w: 9, d: 10, l: 15, gf: 44, ga: 50, gd: '-6', pts: 37 },
-      { rank: 18, team: 'Hatayspor', p: 34, w: 8, d: 13, l: 13, gf: 41, ga: 49, gd: '-8', pts: 37 },
-      { rank: 19, team: 'Pendikspor', p: 34, w: 9, d: 9, l: 16, gf: 42, ga: 71, gd: '-29', pts: 36 },
-      { rank: 20, team: 'İstanbulspor', p: 34, w: 4, d: 7, l: 23, gf: 27, ga: 73, gd: '-46', pts: 16 }
-    ]
-  },
-  epl: {
-    id: 'epl',
-    name: 'Premier League',
-    country: '🏴󠁧󠁢󠁥󠁮󠁧󠁿 İngiltere',
-    season: '2025/26',
-    teams: [
-      { rank: 1, team: 'Arsenal', p: 34, w: 24, d: 6, l: 4, gf: 78, ga: 28, gd: '+50', pts: 78 },
-      { rank: 2, team: 'Manchester City', p: 34, w: 23, d: 7, l: 4, gf: 82, ga: 35, gd: '+47', pts: 76 },
-      { rank: 3, team: 'Liverpool', p: 34, w: 22, d: 8, l: 4, gf: 77, ga: 38, gd: '+39', pts: 74 },
-      { rank: 4, team: 'Aston Villa', p: 34, w: 20, d: 6, l: 8, gf: 69, ga: 50, gd: '+19', pts: 66 },
-      { rank: 5, team: 'Tottenham Hotspur', p: 34, w: 18, d: 6, l: 10, gf: 67, ga: 54, gd: '+13', pts: 60 },
-      { rank: 6, team: 'Newcastle United', p: 34, w: 17, d: 5, l: 12, gf: 71, ga: 54, gd: '+17', pts: 56 },
-      { rank: 7, team: 'Manchester United', p: 34, w: 16, d: 6, l: 12, gf: 52, ga: 51, gd: '+1', pts: 54 },
-      { rank: 8, team: 'West Ham United', p: 34, w: 13, d: 10, l: 11, gf: 56, ga: 65, gd: '-9', pts: 49 },
-      { rank: 9, team: 'Chelsea', p: 34, w: 13, d: 8, l: 13, gf: 61, ga: 59, gd: '+2', pts: 47 },
-      { rank: 10, team: 'Bournemouth', p: 34, w: 12, d: 9, l: 13, gf: 50, ga: 60, gd: '-10', pts: 45 },
-      { rank: 11, team: 'Brighton & Hove Albion', p: 34, w: 11, d: 11, l: 12, gf: 52, ga: 57, gd: '-5', pts: 44 },
-      { rank: 12, team: 'Wolverhampton', p: 34, w: 12, d: 7, l: 15, gf: 48, ga: 57, gd: '-9', pts: 43 },
-      { rank: 13, team: 'Fulham', p: 34, w: 12, d: 6, l: 16, gf: 49, ga: 55, gd: '-6', pts: 42 },
-      { rank: 14, team: 'Crystal Palace', p: 34, w: 10, d: 9, l: 15, gf: 44, ga: 56, gd: '-12', pts: 39 },
-      { rank: 15, team: 'Everton', p: 34, w: 10, d: 8, l: 16, gf: 37, ga: 48, gd: '-11', pts: 38 },
-      { rank: 16, team: 'Brentford', p: 34, w: 10, d: 5, l: 19, gf: 52, ga: 61, gd: '-9', pts: 35 },
-      { rank: 17, team: 'Nottingham Forest', p: 34, w: 8, d: 9, l: 17, gf: 42, ga: 62, gd: '-20', pts: 33 },
-      { rank: 18, team: 'Luton Town', p: 34, w: 6, d: 7, l: 21, gf: 48, ga: 77, gd: '-29', pts: 25 },
-      { rank: 19, team: 'Burnley', p: 34, w: 5, d: 8, l: 21, gf: 37, ga: 69, gd: '-32', pts: 23 },
-      { rank: 20, team: 'Sheffield United', p: 34, w: 3, d: 7, l: 24, gf: 33, ga: 92, gd: '-59', pts: 16 }
-    ]
-  },
-  laliga: {
-    id: 'laliga',
-    name: 'La Liga EA Sports',
-    country: '🇪🇸 İspanya',
-    season: '2025/26',
-    teams: [
-      { rank: 1, team: 'Real Madrid', p: 34, w: 26, d: 6, l: 2, gf: 74, ga: 22, gd: '+52', pts: 84 },
-      { rank: 2, team: 'Barcelona', p: 34, w: 22, d: 7, l: 5, gf: 70, ga: 43, gd: '+27', pts: 73 },
-      { rank: 3, team: 'Girona', p: 34, w: 22, d: 5, l: 7, gf: 69, ga: 40, gd: '+29', pts: 71 },
-      { rank: 4, team: 'Atlético Madrid', p: 34, w: 20, d: 4, l: 10, gf: 59, ga: 38, gd: '+21', pts: 64 },
-      { rank: 5, team: 'Athletic Bilbao', p: 34, w: 17, d: 10, l: 7, gf: 53, ga: 33, gd: '+20', pts: 61 },
-      { rank: 6, team: 'Real Sociedad', p: 34, w: 14, d: 12, l: 8, gf: 48, ga: 35, gd: '+13', pts: 54 },
-      { rank: 7, team: 'Real Betis', p: 34, w: 12, d: 13, l: 9, gf: 43, ga: 41, gd: '+2', pts: 49 },
-      { rank: 8, team: 'Valencia', p: 34, w: 13, d: 8, l: 13, gf: 37, ga: 39, gd: '-2', pts: 47 },
-      { rank: 9, team: 'Villarreal', p: 34, w: 12, d: 9, l: 13, gf: 56, ga: 58, gd: '-2', pts: 45 },
-      { rank: 10, team: 'Getafe', p: 34, w: 10, d: 13, l: 11, gf: 41, ga: 47, gd: '-6', pts: 43 },
-      { rank: 11, team: 'Osasuna', p: 34, w: 11, d: 6, l: 17, gf: 37, ga: 49, gd: '-12', pts: 39 },
-      { rank: 12, team: 'Sevilla', p: 34, w: 9, d: 11, l: 14, gf: 43, ga: 46, gd: '-3', pts: 38 },
-      { rank: 13, team: 'Deportivo Alavés', p: 34, w: 10, d: 8, l: 16, gf: 32, ga: 42, gd: '-10', pts: 38 },
-      { rank: 14, team: 'Las Palmas', p: 34, w: 10, d: 7, l: 17, gf: 30, ga: 43, gd: '-13', pts: 37 },
-      { rank: 15, team: 'Rayo Vallecano', p: 34, w: 7, d: 13, l: 14, gf: 27, ga: 43, gd: '-16', pts: 34 },
-      { rank: 16, team: 'Mallorca', p: 34, w: 6, d: 14, l: 14, gf: 27, ga: 40, gd: '-13', pts: 32 },
-      { rank: 17, team: 'Celta Vigo', p: 34, w: 7, d: 10, l: 17, gf: 37, ga: 52, gd: '-15', pts: 31 },
-      { rank: 18, team: 'Cádiz', p: 34, w: 4, d: 14, l: 16, gf: 23, ga: 46, gd: '-23', pts: 26 },
-      { rank: 19, team: 'Granada', p: 34, w: 4, d: 9, l: 21, gf: 36, ga: 68, gd: '-32', pts: 21 },
-      { rank: 20, team: 'Almería', p: 34, w: 1, d: 11, l: 22, gf: 32, ga: 67, gd: '-35', pts: 14 }
-    ]
-  },
-  seriea: {
-    id: 'seriea',
-    name: 'Serie A TIM',
-    country: '🇮🇹 İtalya',
-    season: '2025/26',
-    teams: [
-      { rank: 1, team: 'Inter Milan', p: 34, w: 28, d: 5, l: 1, gf: 81, ga: 18, gd: '+63', pts: 89 },
-      { rank: 2, team: 'AC Milan', p: 34, w: 21, d: 7, l: 6, gf: 64, ga: 39, gd: '+25', pts: 70 },
-      { rank: 3, team: 'Juventus', p: 34, w: 18, d: 11, l: 5, gf: 47, ga: 26, gd: '+21', pts: 65 },
-      { rank: 4, team: 'Bologna', p: 34, w: 17, d: 12, l: 5, gf: 49, ga: 27, gd: '+22', pts: 63 },
-      { rank: 5, team: 'AS Roma', p: 34, w: 17, d: 8, l: 9, gf: 59, ga: 41, gd: '+18', pts: 59 },
-      { rank: 6, team: 'Atalanta', p: 34, w: 17, d: 6, l: 11, gf: 61, ga: 39, gd: '+22', pts: 57 },
-      { rank: 7, team: 'Lazio', p: 34, w: 16, d: 7, l: 11, gf: 45, ga: 37, gd: '+8', pts: 55 },
-      { rank: 8, team: 'Napoli', p: 34, w: 13, d: 11, l: 10, gf: 50, ga: 44, gd: '+6', pts: 50 },
-      { rank: 9, team: 'Fiorentina', p: 34, w: 14, d: 8, l: 12, gf: 50, me: 38, gd: '+12', pts: 50 },
-      { rank: 10, team: 'Torino', p: 34, w: 11, d: 13, l: 10, gf: 31, ga: 32, gd: '-1', pts: 46 },
-      { rank: 11, team: 'Monza', p: 34, w: 11, d: 11, l: 12, gf: 35, ga: 44, gd: '-9', pts: 44 },
-      { rank: 12, team: 'Genoa', p: 34, w: 10, d: 12, l: 12, gf: 38, ga: 41, gd: '-3', pts: 42 },
-      { rank: 13, team: 'Lecce', p: 34, w: 8, d: 12, l: 14, gf: 31, ga: 49, gd: '-18', pts: 36 },
-      { rank: 14, team: 'Cagliari', p: 34, w: 7, d: 11, l: 16, gf: 36, ga: 56, gd: '-20', pts: 32 },
-      { rank: 15, team: 'Verona', p: 34, w: 7, d: 10, l: 17, gf: 31, ga: 45, gd: '-14', pts: 31 },
-      { rank: 16, team: 'Empoli', p: 34, w: 7, d: 10, l: 17, gf: 26, ga: 50, gd: '-24', pts: 31 },
-      { rank: 17, team: 'Frosinone', p: 34, w: 7, d: 10, l: 17, gf: 40, ga: 63, gd: '-23', pts: 31 },
-      { rank: 18, team: 'Udinese', p: 34, w: 4, d: 17, l: 13, gf: 32, ga: 51, gd: '-19', pts: 29 },
-      { rank: 19, team: 'Sassuolo', p: 34, w: 6, d: 8, l: 20, gf: 39, ga: 70, gd: '-31', pts: 26 },
-      { rank: 20, team: 'Salernitana', p: 34, w: 2, d: 9, l: 23, gf: 26, ga: 73, gd: '-47', pts: 15 }
-    ]
-  },
-  bundesliga: {
-    id: 'bundesliga',
-    name: 'Bundesliga',
-    country: '🇩🇪 Almanya',
-    season: '2025/26',
-    teams: [
-      { rank: 1, team: 'Bayer Leverkusen', p: 31, w: 25, d: 6, l: 0, gf: 77, ga: 22, gd: '+55', pts: 81 },
-      { rank: 2, team: 'Bayern München', p: 31, w: 22, d: 3, l: 6, gf: 89, ga: 38, gd: '+51', pts: 69 },
-      { rank: 3, team: 'VfB Stuttgart', p: 31, w: 20, d: 4, l: 7, gf: 70, ga: 38, gd: '+32', pts: 64 },
-      { rank: 4, team: 'RB Leipzig', p: 31, w: 19, d: 5, l: 7, gf: 73, ga: 35, gd: '+38', pts: 62 },
-      { rank: 5, team: 'Borussia Dortmund', p: 31, w: 16, d: 9, l: 6, gf: 59, ga: 39, gd: '+20', pts: 57 },
-      { rank: 6, team: 'Eintracht Frankfurt', p: 31, w: 11, d: 12, l: 8, gf: 47, ga: 44, gd: '+3', pts: 45 },
-      { rank: 7, team: 'SC Freiburg', p: 31, w: 11, d: 7, l: 13, gf: 43, ga: 55, gd: '-12', pts: 40 },
-      { rank: 8, team: 'FC Augsburg', p: 31, w: 10, d: 9, l: 12, gf: 48, ga: 52, gd: '-4', pts: 39 },
-      { rank: 9, team: 'TSG Hoffenheim', p: 31, w: 10, d: 9, l: 12, gf: 53, ga: 60, gd: '-7', pts: 39 },
-      { rank: 10, team: 'Heidenheim', p: 31, w: 9, d: 10, l: 12, gf: 44, ga: 52, gd: '-8', pts: 37 },
-      { rank: 11, team: 'Werder Bremen', p: 31, w: 9, d: 10, l: 12, gf: 43, ga: 50, gd: '-7', pts: 37 },
-      { rank: 12, team: 'VfL Wolfsburg', p: 31, w: 9, d: 7, l: 15, gf: 40, ga: 51, gd: '-11', pts: 34 },
-      { rank: 13, team: 'Borussia M’gladbach', p: 31, w: 7, d: 11, l: 13, gf: 53, ga: 60, gd: '-7', pts: 32 },
-      { rank: 14, team: 'Union Berlin', p: 31, w: 8, d: 6, l: 17, gf: 26, ga: 50, gd: '-24', pts: 30 },
-      { rank: 15, team: 'VfL Bochum', p: 31, w: 6, d: 12, l: 13, gf: 37, ga: 62, gd: '-25', pts: 30 },
-      { rank: 16, team: 'Mainz 05', p: 31, w: 5, d: 13, l: 13, gf: 31, ga: 48, gd: '-17', pts: 28 },
-      { rank: 17, team: 'Köln', p: 31, w: 4, d: 11, l: 16, gf: 24, ga: 54, gd: '-30', pts: 23 },
-      { rank: 18, team: 'Darmstadt 98', p: 31, w: 3, d: 8, l: 20, gf: 30, ga: 73, gd: '-43', pts: 17 }
-    ]
-  },
-  uefa: {
-    id: 'uefa',
-    name: 'UEFA Ülke Katsayı Sıralaması',
-    country: '🇪🇺 Avrupa',
-    season: '2025/26 Sıralaması',
-    teams: [
-      { rank: 1, team: '🏴󠁧󠁢󠁥󠁮󠁧󠁿 İngiltere', p: '5/8', w: '98.4', d: '-', l: '-', gf: '-', ga: '-', gd: '104.3', pts: '104.300' },
-      { rank: 2, team: '🇮🇹 İtalya', p: '6/7', w: '88.7', d: '-', l: '-', gf: '-', ga: '-', gd: '90.2', pts: '90.285' },
-      { rank: 3, team: '🇪🇸 İspanya', p: '4/8', w: '87.1', d: '-', l: '-', gf: '-', ga: '-', gd: '89.4', pts: '89.489' },
-      { rank: 4, team: '🇩🇪 Almanya', p: '5/7', w: '84.2', d: '-', l: '-', gf: '-', ga: '-', gd: '86.6', pts: '86.624' },
-      { rank: 5, team: '🇫🇷 Fransa', p: '3/6', w: '64.1', d: '-', l: '-', gf: '-', ga: '-', gd: '66.8', pts: '66.831' },
-      { rank: 6, team: '🇳🇱 Hollanda', p: '2/6', w: '61.3', d: '-', l: '-', gf: '-', ga: '-', gd: '61.300', pts: '61.300' },
-      { rank: 7, team: '🇵🇹 Portekiz', p: '2/6', w: '55.4', d: '-', l: '-', gf: '-', ga: '-', gd: '56.3', pts: '56.316' },
-      { rank: 8, team: '🇧🇪 Belçika', p: '2/5', w: '47.6', d: '-', l: '-', gf: '-', ga: '-', gd: '48.8', pts: '48.800' },
-      { rank: 9, team: '🇹🇷 Türkiye', p: '2/5', w: '38.1', d: '-', l: '-', gf: '-', ga: '-', gd: '38.6', pts: '38.600' },
-      { rank: 10, team: '🇨🇿 Çekya', p: '1/4', w: '35.8', d: '-', l: '-', gf: '-', ga: '-', gd: '36.0', pts: '36.050' }
-    ]
-  }
-};
-
-// News & Transfer Feed Data
-const TRANSFER_NEWS = [
-  {
-    id: 1,
-    title: "Ballon d'Or 2026 Zirvesi ve Zirve Adayları",
-    desc: "Şampiyonlar Ligi ve lig performansları sonrasında Harry Kane ve Lamine Yamal arasındaki yarış kızışıyor.",
-    tag: "Ödüller & Analiz",
-    date: "Bugün, 09:15",
-    accent: "emerald"
-  },
-  {
-    id: 2,
-    title: "Süper Lig'de Yaz Transfer Çılgınlığı Başlıyor",
-    desc: "Galatasaray ve Fenerbahçe premier lig deneyimli üç yıldız isim için masaya oturdu.",
-    tag: "Transfer İddiası",
-    date: "Bugün, 08:30",
-    accent: "blue"
-  },
-  {
-    id: 3,
-    title: "UEFA Ülke Katsayısı: Türkiye 9. Sıradaki Yerini Sağlamlaştırdı",
-    desc: "Temsilcilerimizin kazandığı puanlarla Türkiye önümüzdeki sezon Şampiyonlar Ligi direkt biletini koruyor.",
-    tag: "UEFA Analizi",
-    date: "Dün, 22:40",
-    accent: "amber"
-  },
-  {
-    id: 4,
-    title: "Bruno Fernandes ve Suudi Kulüplerinin Dev Teklifi",
-    desc: "Manchester United kaptanı için sezon sonu 100 milyon Euro'yu bulan paket teklif masada.",
-    tag: "Söylenti",
-    date: "Dün, 19:15",
-    accent: "rose"
-  }
-];
-
-export default function App() {
-  const [activeTab, setActiveTab] = useState('superlig');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [lastUpdated, setLastUpdated] = useState(new Date().toLocaleTimeString());
-  const [isRefreshing, setIsRefreshing] = useState(false);
-
-  // Requirement #1: Update Document Title Strategy
-  useEffect(() => {
-    // Sets browser tab / SEO title without YUSALİMEH GLOBAL keyword as requested
-    document.title = "Güncel Spor Veri Portalı ve Lig Puan Durumu | 2026/27";
-  }, []);
-
-  const currentLeague = LEAGUE_DATA[activeTab];
-
-  // Filtered teams based on search query
-  const filteredTeams = useMemo(() => {
-    if (!searchQuery.trim()) return currentLeague.teams;
-    return currentLeague.teams.filter(t => 
-      t.team.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }, [searchQuery, currentLeague]);
-
-  const handleRefresh = () => {
-    setIsRefreshing(true);
-    setTimeout(() => {
-      setLastUpdated(new Date().toLocaleTimeString());
-      setIsRefreshing(false);
-    }, 600);
-  };
-
-  return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-emerald-500 selection:text-slate-950 pb-12">
-      
-      {/* Top Bar / Header */}
-      <header className="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            
-            {/* Title Display Strategy: Screen still proudly shows YUSALİMEH GLOBAL */}
-            <div className="flex items-center space-x-3">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-blue-600 to-emerald-500 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-emerald-500/10">
-                YG
-              </div>
-              <div>
-                <h1 className="text-lg sm:text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
-                  YUSALİMEH GLOBAL
+    <div class="max-w-7xl mx-auto space-y-6">
+        <!-- Üst Başlık (Site İçinde Yusalimeh Global Görünür) -->
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center pb-6 border-b border-slate-800 gap-4">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+                    YUSALİMEH GLOBAL | 2025/26 Küresel Stratejik Veri Portalı
                 </h1>
-                <p className="text-xs text-emerald-400/90 font-medium hidden sm:block">
-                  2025/26 Küresel Stratejik Veri Portalı & Dijital İstihbarat Merkezi
-                </p>
-              </div>
+                <p class="text-sm text-slate-400">Gelişmiş Spor İstihbaratı ve Atmosferik Takip Paneli</p>
             </div>
-
-            {/* Header Right Quick Stats & Links */}
-            <div className="flex items-center space-x-3 text-xs">
-              <div className="hidden md:flex items-center space-x-2 bg-slate-800/80 px-3 py-1.5 rounded-full border border-slate-700/50">
-                <span className="text-slate-400">Analitik Tag:</span>
-                <span className="font-mono text-emerald-400">G-EVTMTK2FLS</span>
-              </div>
-              
-              <div className="flex items-center space-x-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1.5 rounded-full font-semibold">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                <span>CANLI VERİ</span>
-              </div>
+            <div class="flex items-center gap-2 bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full text-xs font-mono border border-emerald-500/20">
+                <i data-lucide="zap" class="w-3.5 h-3.5 animate-pulse"></i> CANLI VERİ AKTİF
             </div>
+        </header>
 
-          </div>
+        <!-- Lig Sekmeleri -->
+        <div class="flex flex-wrap gap-2 bg-slate-900/80 p-2 rounded-xl border border-slate-800" id="leagueTabs">
+            <button onclick="switchLeague('superlig')" class="league-btn px-4 py-2 rounded-lg text-xs font-medium transition bg-blue-600 text-white shadow" data-target="superlig">Trendyol Süper Lig</button>
+            <button onclick="switchLeague('epl')" class="league-btn px-4 py-2 rounded-lg text-xs font-medium transition text-slate-400 hover:text-white hover:bg-slate-800" data-target="epl">Premier League</button>
+            <button onclick="switchLeague('laliga')" class="league-btn px-4 py-2 rounded-lg text-xs font-medium transition text-slate-400 hover:text-white hover:bg-slate-800" data-target="laliga">La Liga</button>
+            <button onclick="switchLeague('seriea')" class="league-btn px-4 py-2 rounded-lg text-xs font-medium transition text-slate-400 hover:text-white hover:bg-slate-800" data-target="seriea">Serie A</button>
+            <button onclick="switchLeague('bundesliga')" class="league-btn px-4 py-2 rounded-lg text-xs font-medium transition text-slate-400 hover:text-white hover:bg-slate-800" data-target="bundesliga">Bundesliga</button>
+            <button onclick="switchLeague('ucl')" class="league-btn px-4 py-2 rounded-lg text-xs font-medium transition text-slate-400 hover:text-white hover:bg-slate-800" data-target="ucl">UEFA Şampiyonlar Ligi</button>
         </div>
 
-        {/* Secondary Sub-Navbar */}
-        <div className="bg-slate-950/60 border-t border-slate-800/50 px-4 sm:px-6 lg:px-8 py-2">
-          <div className="max-w-7xl mx-auto flex items-center justify-between text-xs text-slate-400 overflow-x-auto whitespace-nowrap scrollbar-none">
-            <div className="flex items-center space-x-6">
-              <span className="text-slate-100 font-semibold flex items-center gap-1">
-                <BarChart3 size={14} className="text-blue-400" /> Veri Merkezi
-              </span>
-              <span className="hover:text-slate-200 cursor-pointer transition">Fikstür & Sonuçlar</span>
-              <span className="hover:text-slate-200 cursor-pointer transition">Avrupa Katsayıları</span>
-              <span className="hover:text-slate-200 cursor-pointer transition">Mevzuat</span>
-              <span className="hover:text-slate-200 cursor-pointer transition">Kurumsal</span>
-            </div>
-            <div className="flex items-center space-x-3 pl-4">
-              <a 
-                href="https://github.com" 
-                target="_blank" 
-                rel="noreferrer" 
-                className="flex items-center space-x-1 text-slate-400 hover:text-white transition"
-              >
-                <Github size={14} />
-                <span>GitHub Repo</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Container */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 space-y-6">
-
-        {/* Top Info Grid: Atmosphere & Strategic Intelligence */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          
-          {/* Weather / Atmospheric Intel Panel */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4 shadow-sm backdrop-blur-sm">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                <CloudSun size={14} className="text-amber-400" /> Meteorolojik İstihbarat
-              </span>
-              <span className="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-300 font-mono">ECMWF / GFS</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-xl font-bold text-white">18.4°C</div>
-                <div className="text-xs text-slate-400">Konya / Yazır Anlık Model</div>
-              </div>
-              <div className="text-right text-xs">
-                <div className="text-emerald-400 font-mono">Basınç: 1014 hPa</div>
-                <div className="text-slate-400 font-mono">Nem: %42 RH</div>
-              </div>
-            </div>
-          </div>
-
-          {/* European Coefficient Status */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4 shadow-sm backdrop-blur-sm">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                <Globe size={14} className="text-blue-400" /> UEFA Ülke Sıralaması
-              </span>
-              <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded font-mono">9. Sıra</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-xl font-bold text-white">38.600 Puan</div>
-                <div className="text-xs text-slate-400">Türkiye UEFA Katsayısı</div>
-              </div>
-              <div className="text-right text-xs">
-                <div className="text-blue-400 font-semibold">+2 Şampiyonlar Ligi</div>
-                <div className="text-slate-400">1 Direkt Katılım</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Real-time System Status */}
-          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4 shadow-sm backdrop-blur-sm">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                <Activity size={14} className="text-emerald-400" /> Sistem & Sunucu Durumu
-              </span>
-              <button 
-                onClick={handleRefresh}
-                className="hover:text-white text-slate-400 transition"
-                title="Yenile"
-              >
-                <RefreshCw size={14} className={isRefreshing ? "animate-spin text-emerald-400" : ""} />
-              </button>
-            </div>
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-xl font-bold text-emerald-400 font-mono">AKTİF / 99.9%</div>
-                <div className="text-xs text-slate-400">Vercel Edge Network</div>
-              </div>
-              <div className="text-right text-xs">
-                <div className="text-slate-300 font-mono">Son Güncelleme:</div>
-                <div className="text-slate-400 font-mono">{lastUpdated}</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Main Workspace Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-          {/* Left / Main Column: League Selector & Standings Table (2/3 width) */}
-          <div className="lg:col-span-2 space-y-4">
+        <!-- Ana Grid Alanı -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             
-            {/* League Selection Tabs */}
-            <div className="bg-slate-900 border border-slate-800 rounded-xl p-3 shadow-md">
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
-                <div className="flex items-center space-x-2">
-                  <Trophy className="text-amber-400" size={20} />
-                  <h2 className="font-bold text-slate-100 text-base sm:text-lg">
-                    Küresel Lig Puan Durumları
-                  </h2>
+            <!-- Sol Puan Durumu Tablosu (2 Kolon) -->
+            <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold flex items-center gap-2">
+                        <i data-lucide="trophy" class="text-yellow-500 w-5 h-5"></i> <span id="tableTitle">Trendyol Süper Lig Puan Durumu</span>
+                    </h2>
+                    <span class="text-xs text-slate-400 font-mono">2025/26 Sezonu</span>
                 </div>
-                
-                {/* Team Search Input */}
-                <div className="relative w-full sm:w-56">
-                  <Search size={14} className="absolute left-3 top-2.5 text-slate-400" />
-                  <input
-                    type="text"
-                    placeholder="Takım ara..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-8 pr-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition"
-                  />
-                </div>
-              </div>
 
-              {/* Tab Buttons */}
-              <div className="flex items-center gap-1.5 mt-3 overflow-x-auto pb-1 scrollbar-none">
-                {Object.values(LEAGUE_DATA).map((league) => (
-                  <button
-                    key={league.id}
-                    onClick={() => {
-                      setActiveTab(league.id);
-                      setSearchQuery('');
-                    }}
-                    className={`px-3 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition flex items-center space-x-1.5 ${
-                      activeTab === league.id
-                        ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
-                        : 'bg-slate-800/60 text-slate-400 hover:bg-slate-800 hover:text-slate-200'
-                    }`}
-                  >
-                    <span>{league.country}</span>
-                  </button>
-                ))}
-              </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-800/50 text-slate-400 font-mono text-xs">
+                            <tr>
+                                <th class="p-3">#</th>
+                                <th class="p-3">Takım</th>
+                                <th class="p-3 text-center">O</th>
+                                <th class="p-3 text-center">G</th>
+                                <th class="p-3 text-center">B</th>
+                                <th class="p-3 text-center">M</th>
+                                <th class="p-3 text-center">AV</th>
+                                <th class="p-3 text-center font-bold">P</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody" class="divide-y divide-slate-800/60 font-medium">
+                            <!-- JS ile doldurulacak -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            {/* Standings Table Card */}
-            <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-lg">
-              
-              {/* Table Header Details */}
-              <div className="px-4 py-3 bg-slate-950/40 border-b border-slate-800 flex justify-between items-center text-xs">
-                <div className="font-semibold text-slate-200 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                  {currentLeague.name} — <span className="text-slate-400 font-normal">{currentLeague.season} Sezonu</span>
-                </div>
-                <div className="text-slate-400">
-                  Toplam <span className="text-white font-semibold">{filteredTeams.length}</span> Takım
-                </div>
-              </div>
-
-              {/* Table Wrapper */}
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs sm:text-sm">
-                  <thead className="bg-slate-950/80 text-slate-400 border-b border-slate-800 uppercase tracking-wider text-[11px] font-mono">
-                    <tr>
-                      <th className="py-3 px-3 w-10 text-center">#</th>
-                      <th className="py-3 px-3">Takım</th>
-                      <th className="py-3 px-2 text-center">O</th>
-                      <th className="py-3 px-2 text-center">G</th>
-                      <th className="py-3 px-2 text-center">B</th>
-                      <th className="py-3 px-2 text-center">M</th>
-                      {activeTab !== 'uefa' && (
-                        <>
-                          <th className="py-3 px-2 text-center hidden sm:table-cell">AG</th>
-                          <th className="py-3 px-2 text-center hidden sm:table-cell">YG</th>
-                          <th className="py-3 px-2 text-center font-mono">AV</th>
-                        </>
-                      )}
-                      <th className="py-3 px-3 text-center font-bold text-white">Puan</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-800/60 font-medium">
-                    {filteredTeams.length > 0 ? (
-                      filteredTeams.map((row) => (
-                        <tr 
-                          key={row.rank} 
-                          className="hover:bg-slate-800/50 transition-colors group"
-                        >
-                          {/* Rank Badge */}
-                          <td className="py-3 px-3 text-center">
-                            <span className={`inline-flex items-center justify-center w-6 h-6 rounded-md font-mono text-xs font-bold ${
-                              row.rank === 1 
-                                ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' 
-                                : row.rank <= 4 
-                                ? 'bg-blue-500/15 text-blue-400'
-                                : row.rank >= filteredTeams.length - 2 && activeTab !== 'uefa'
-                                ? 'bg-rose-500/15 text-rose-400'
-                                : 'text-slate-400'
-                            }`}>
-                              {row.rank}
-                            </span>
-                          </td>
-
-                          {/* Team Name */}
-                          <td className="py-3 px-3 font-semibold text-slate-100 group-hover:text-blue-400 transition">
-                            {row.team}
-                          </td>
-
-                          {/* Stats */}
-                          <td className="py-3 px-2 text-center text-slate-300 font-mono">{row.p}</td>
-                          <td className="py-3 px-2 text-center text-emerald-400 font-mono">{row.w}</td>
-                          <td className="py-3 px-2 text-center text-slate-400 font-mono">{row.d}</td>
-                          <td className="py-3 px-2 text-center text-rose-400 font-mono">{row.l}</td>
-                          
-                          {activeTab !== 'uefa' && (
-                            <>
-                              <td className="py-3 px-2 text-center text-slate-400 font-mono hidden sm:table-cell">{row.gf}</td>
-                              <td className="py-3 px-2 text-center text-slate-400 font-mono hidden sm:table-cell">{row.ga}</td>
-                              <td className="py-3 px-2 text-center text-slate-300 font-mono text-xs">{row.gd}</td>
-                            </>
-                          )}
-
-                          {/* Total Points */}
-                          <td className="py-3 px-3 text-center font-bold text-blue-400 font-mono text-sm sm:text-base">
-                            {row.pts}
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td colSpan={10} className="py-8 text-center text-slate-500 text-xs">
-                          Aramanıza uygun takım bulunamadı.
-                        </td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
-              </div>
-
-              {/* Table Footer Legend */}
-              <div className="px-4 py-2.5 bg-slate-950/60 border-t border-slate-800 text-[11px] text-slate-400 flex flex-wrap gap-4 items-center">
-                <div className="flex items-center space-x-1.5">
-                  <span className="w-2.5 h-2.5 rounded bg-amber-500/40 border border-amber-400"></span>
-                  <span>Lider / Şampiyonlar Ligi</span>
-                </div>
-                <div className="flex items-center space-x-1.5">
-                  <span className="w-2.5 h-2.5 rounded bg-blue-500/40"></span>
-                  <span>Avrupa Kupaları</span>
-                </div>
-                {activeTab !== 'uefa' && (
-                  <div className="flex items-center space-x-1.5">
-                    <span className="w-2.5 h-2.5 rounded bg-rose-500/40"></span>
-                    <span>Küme Düşme Hattı</span>
-                  </div>
-                )}
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* Right Column: News, Strategic Intelligence & Transfers (1/3 width) */}
-          <div className="space-y-4">
-            
-            {/* Transfer & Agenda Intelligence Panel */}
-            <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-md">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-                <h3 className="font-bold text-slate-100 flex items-center gap-2 text-sm sm:text-base">
-                  <Newspaper className="text-blue-400" size={18} />
-                  Son Transfer & Gündem İstihbaratı
-                </h3>
-                <span className="text-[10px] bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded font-mono">
-                  GÜNCEL
-                </span>
-              </div>
-
-              <div className="space-y-3">
-                {TRANSFER_NEWS.map((item) => (
-                  <div 
-                    key={item.id}
-                    className="p-3 bg-slate-950/60 border border-slate-800/80 rounded-lg hover:border-slate-700 transition group cursor-pointer"
-                  >
-                    <div className="flex items-center justify-between text-[11px] mb-1.5">
-                      <span className="font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
-                        {item.tag}
-                      </span>
-                      <span className="text-slate-500 font-mono">{item.date}</span>
+            <!-- Sağ Panel: Transfer ve Gündem (1 Kolon) -->
+            <div class="space-y-6">
+                <!-- Transfer Paneli -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+                    <h2 class="text-lg font-semibold flex items-center gap-2 mb-4">
+                        <i data-lucide="newspaper" class="text-blue-400 w-5 h-5"></i> Son Transfer & Gündem
+                    </h2>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-slate-800/40 border border-slate-800/80 rounded-lg">
+                            <span class="text-[10px] px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded-full font-semibold">Ödül</span>
+                            <h3 class="font-semibold text-sm text-slate-200 mt-1">Ballon d'Or 2026 Sahibini Buldu</h3>
+                            <p class="text-xs text-slate-400 mt-1">Harry Kane yılın futbolcusu seçilerek Altın Top ödülüne ulaştı.</p>
+                        </div>
+                        <div class="p-3 bg-slate-800/40 border border-slate-800/80 rounded-lg">
+                            <span class="text-[10px] px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded-full font-semibold">Transfer</span>
+                            <h3 class="font-semibold text-sm text-slate-200 mt-1">Lamine Yamal Kararı</h3>
+                            <p class="text-xs text-slate-400 mt-1">Barcelona, gelen rekor tekliflere rağmen yıldızını satmama kararı aldı.</p>
+                        </div>
+                        <div class="p-3 bg-slate-800/40 border border-slate-800/80 rounded-lg">
+                            <span class="text-[10px] px-2 py-0.5 bg-purple-500/10 text-purple-400 rounded-full font-semibold">Söylenti</span>
+                            <h3 class="font-semibold text-sm text-slate-200 mt-1">Bruno Fernandes Gelişmesi</h3>
+                            <p class="text-xs text-slate-400 mt-1">Manchester United kaptanının sezon sonu planları şekilleniyor.</p>
+                        </div>
                     </div>
-                    <h4 className="font-bold text-slate-200 text-xs sm:text-sm group-hover:text-blue-400 transition leading-snug">
-                      {item.title}
-                    </h4>
-                    <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                      {item.desc}
+                </div>
+
+                <!-- Sistem Bilgisi -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+                    <h2 class="text-sm font-semibold text-slate-300 flex items-center gap-2 mb-2">
+                        <i data-lucide="shield-check" class="text-emerald-400 w-4 h-4"></i> Altyapı & İstihbarat
+                    </h2>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Veriler küresel veri sağlayıcılarından çekilmekte olup ECMWF/GFS simülasyonlarıyla desteklenmektedir.
                     </p>
-                  </div>
-                ))}
-              </div>
+                </div>
             </div>
 
-            {/* Strategic Analytics Summary Card */}
-            <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 rounded-xl p-4 shadow-md space-y-3">
-              <div className="flex items-center space-x-2 text-slate-200 font-bold text-xs uppercase tracking-wider">
-                <Compass size={16} className="text-emerald-400" />
-                <span>Portal Sistem Özeti</span>
-              </div>
-              
-              <p className="text-xs text-slate-400 leading-relaxed">
-                YUSALİMEH GLOBAL 2025/26 portalı üzerinden küresel spor dinamikleri, canlı veri akışları ve katsayı simülasyonları anlık olarak işlenmektedir.
-              </p>
-
-              <div className="pt-2 border-t border-slate-800/80 flex justify-between items-center text-[11px] text-slate-400 font-mono">
-                <span>Veri İletimi: Şifreli SSL</span>
-                <span className="text-emerald-400">Çevrimiçi</span>
-              </div>
-            </div>
-
-          </div>
-
         </div>
-
-      </main>
-
-      {/* Footer Component */}
-      <footer className="mt-12 border-t border-slate-800 bg-slate-950 py-6 text-slate-500 text-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            <p className="font-semibold text-slate-300">YUSALİMEH GLOBAL © 2026</p>
-            <p className="text-[11px] text-slate-500">2025/26 Küresel Stratejik Veri Portalı ve Dijital İstihbarat Merkezi</p>
-          </div>
-          <div className="text-right text-[11px] text-slate-500 font-mono">
-            <span>Sistem Başlığı (Title): </span>
-            <span className="text-slate-400">Güncel Spor Veri Portalı ve Lig Puan Durumu | 2026/27</span>
-          </div>
-        </div>
-      </footer>
-
     </div>
-  );
-}
+
+    <!-- JavaScript Veri ve Mantık Yürütme -->
+    <script>
+        const leaguesData = {
+            superlig: {
+                title: "Trendyol Süper Lig Puan Durumu",
+                teams: [
+                    { rank: 1, team: "Galatasaray", p: 34, w: 24, d: 5, l: 5, gd: "+47", pts: 77 },
+                    { rank: 2, team: "Fenerbahçe", p: 34, w: 21, d: 11, l: 2, gd: "+40", pts: 74 },
+                    { rank: 3, team: "Trabzonspor", p: 34, w: 20, d: 9, l: 5, gd: "+22", pts: 69 },
+                    { rank: 4, team: "Beşiktaş", p: 34, w: 17, d: 9, l: 8, gd: "+19", pts: 60 },
+                    { rank: 5, team: "Başakşehir FK", p: 34, w: 16, d: 9, l: 9, gd: "+23", pts: 57 }
+                ]
+            },
+            epl: {
+                title: "Premier League Puan Durumu",
+                teams: [
+                    { rank: 1, team: "Manchester City", p: 8, w: 7, d: 0, l: 1, gd: "+11", pts: 21 },
+                    { rank: 2, team: "Arsenal", p: 8, w: 7, d: 0, l: 1, gd: "+8", pts: 21 },
+                    { rank: 3, team: "Brighton", p: 8, w: 5, d: 1, l: 2, gd: "+16", pts: 16 },
+                    { rank: 4, team: "Liverpool", p: 8, w: 4, d: 3, l: 1, gd: "+3", pts: 15 },
+                    { rank: 5, team: "Chelsea", p: 8, w: 4, d: 1, l: 3, gd: "+2", pts: 13 }
+                ]
+            },
+            laliga: {
+                title: "La Liga Puan Durumu",
+                teams: [
+                    { rank: 1, team: "Barcelona", p: 9, w: 8, d: 0, l: 1, gd: "+19", pts: 24 },
+                    { rank: 2, team: "Real Madrid", p: 9, w: 7, d: 2, l: 0, gd: "+15", pts: 23 },
+                    { rank: 3, team: "Villarreal", p: 9, w: 5, d: 2, l: 2, gd: "+4", pts: 17 },
+                    { rank: 4, team: "Atletico Madrid", p: 9, w: 4, d: 4, l: 1, gd: "+6", pts: 16 }
+                ]
+            },
+            seriea: {
+                title: "Serie A Puan Durumu",
+                teams: [
+                    { rank: 1, team: "Napoli", p: 8, w: 6, d: 1, l: 1, gd: "+9", pts: 19 },
+                    { rank: 2, team: "Inter", p: 8, w: 5, d: 2, l: 1, gd: "+10", pts: 17 },
+                    { rank: 3, team: "Juventus", p: 8, w: 4, d: 4, l: 0, gd: "+7", pts: 16 },
+                    { rank: 4, team: "AC Milan", p: 8, w: 4, d: 2, l: 2, gd: "+5", pts: 14 }
+                ]
+            },
+            bundesliga: {
+                title: "Bundesliga Puan Durumu",
+                teams: [
+                    { rank: 1, team: "Bayern Munich", p: 7, w: 6, d: 1, l: 0, gd: "+18", pts: 19 },
+                    { rank: 2, team: "RB Leipzig", p: 7, w: 5, d: 2, l: 0, gd: "+9", pts: 17 },
+                    { rank: 3, team: "Bayer Leverkusen", p: 7, w: 4, d: 2, l: 1, gd: "+6", pts: 14 },
+                    { rank: 4, team: "Borussia Dortmund", p: 7, w: 4, d: 1, l: 2, gd: "+5", pts: 13 }
+                ]
+            },
+            ucl: {
+                title: "UEFA Şampiyonlar Ligi Genel Sıralama",
+                teams: [
+                    { rank: 1, team: "Borussia Dortmund", p: 3, w: 3, d: 0, l: 0, gd: "+9", pts: 9 },
+                    { rank: 2, team: "Manchester City", p: 3, w: 2, d: 1, l: 0, gd: "+8", pts: 7 },
+                    { rank: 3, type: "team", team: "Bayer Leverkusen", p: 3, w: 2, d: 1, l: 0, gd: "+5", pts: 7 },
+                    { rank: 4, team: "Inter", p: 3, w: 2, d: 1, l: 0, gd: "+4", pts: 7 }
+                ]
+            }
+        };
+
+        function switchLeague(leagueKey) {
+            // Buton aktiflik stillerini güncelle
+            document.querySelectorAll('.league-btn').forEach(btn => {
+                if(btn.getAttribute('data-target') === leagueKey) {
+                    btn.className = "league-btn px-4 py-2 rounded-lg text-xs font-medium transition bg-blue-600 text-white shadow";
+                } else {
+                    btn.className = "league-btn px-4 py-2 rounded-lg text-xs font-medium transition text-slate-400 hover:text-white hover:bg-slate-800";
+                }
+            });
+
+            // Başlığı değiştir
+            const currentData = leaguesData[leagueKey];
+            document.getElementById('tableTitle').innerText = currentData.title;
+
+            // Tabloyu doldur
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+
+            currentData.teams.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-800/30 transition text-slate-300";
+                tr.innerHTML = `
+                    <td class="p-3 font-mono text-slate-400">${row.rank}</td>
+                    <td class="p-3 font-semibold text-slate-100">${row.team}</td>
+                    <td class="p-3 text-center">${row.p}</td>
+                    <td class="p-3 text-center text-emerald-400">${row.w}</td>
+                    <td class="p-3 text-center text-slate-400">${row.d}</td>
+                    <td class="p-3 text-center text-rose-400">${row.l}</td>
+                    <td class="p-3 text-center font-mono text-xs">${row.gd}</td>
+                    <td class="p-3 text-center font-bold text-blue-400">${row.pts}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Sayfa ilk açıldığında Süper Lig ile başlat
+        window.onload = function() {
+            switchLeague('superlig');
+            lucide.createIcons();
+        };
+    </script>
+</body>
