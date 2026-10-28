@@ -1,196 +1,125 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EVTMTK2FLS"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-EVTMTK2FLS');
-    </script>
+import React, { useState } from 'react';
+import { Trophy, Zap, Newspaper } from 'lucide-react';
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SÜPER LİG PUAN DURUMU</title>
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;700;900&display=swap');
-        
-        :root {
-            --navy: #020617;
-            --gold: #c5a059;
-            --dark-glass: rgba(15, 23, 42, 0.8);
-            --border: rgba(197, 160, 89, 0.15);
-            --neon-green: #10b981;
-            --neon-red: #ef4444;
-        }
+// Sadece sekme ve Google aramalarında görünecek saf başlık/açıklama (Yusalimeh Global dışarıda bırakıldı)
+export const metadata = {
+  title: 'Güncel Spor ve Transfer Haberleri Portalı',
+  description: 'En güncel Süper Lig, Premier League puan durumları ve canlı transfer analizi.',
+};
 
-        * { box-sizing: border-box; scroll-behavior: smooth; }
-        body { font-family: 'Outfit', sans-serif; background: var(--navy); color: #f1f5f9; margin: 0; overflow-x: hidden; }
+const FootballHub = () => {
+  const [activeTab, setActiveTab] = useState('superlig');
 
-        /* ANALİTİK BİLDİRİM SİSTEMİ */
-        #h-notif { position: fixed; top: -100px; left: 0; width: 100%; background: var(--gold); color: #000; padding: 15px; text-align: center; font-weight: 900; z-index: 9999; transition: 0.7s cubic-bezier(0.23, 1, 0.32, 1); }
+  const superLigData = [
+    { rank: 1, team: 'Galatasaray', p: 34, w: 24, d: 5, l: 5, gd: '+47', pts: 77 },
+    { rank: 2, team: 'Fenerbahçe', p: 34, w: 21, d: 11, l: 2, gd: '+40', pts: 74 },
+    { rank: 3, team: 'Trabzonspor', p: 34, w: 20, d: 9, l: 5, gd: '+22', pts: 69 },
+    { rank: 4, team: 'Beşiktaş', p: 34, w: 17, d: 9, l: 8, gd: '+19', pts: 60 },
+  ];
 
-        /* NAVIGATION - CORPORATE STYLE */
-        nav { background: rgba(2, 6, 23, 0.98); border-bottom: 1px solid var(--border); padding: 25px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(20px); }
-        .brand { font-size: 2.2rem; font-weight: 900; letter-spacing: -2px; }
-        .brand span { color: var(--gold); }
-        .nav-links a { color: #94a3b8; text-decoration: none; margin-left: 30px; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; transition: 0.3s; }
-        .nav-links a:hover { color: var(--gold); text-shadow: 0 0 15px var(--gold); }
+  const premierLeagueData = [
+    { rank: 1, team: 'Manchester City', p: 8, w: 7, d: 0, l: 1, gd: '+11', pts: 21 },
+    { rank: 2, team: 'Arsenal', p: 8, w: 7, d: 0, l: 1, gd: '+8', pts: 21 },
+    { rank: 3, team: 'Brighton', p: 8, w: 5, d: 1, l: 2, gd: '+16', pts: 16 },
+    { rank: 4, team: 'Liverpool', p: 8, w: 4, d: 3, l: 1, gd: '+3', pts: 15 },
+  ];
 
-        /* MASTER LAYOUT */
-        .portal-container { display: grid; grid-template-columns: 280px 1fr 320px; gap: 30px; padding: 50px 5%; }
+  const transferNews = [
+    { id: 1, title: "Ballon d'Or 2026 Sahibini Buldu", desc: "Harry Kane yılın futbolcusu seçilerek Altın Top ödülünü kazandı.", tag: "Ödül" },
+    { id: 2, title: "Lamine Yamal İçin Dev Teklifler", desc: "Barcelona, gelen astronomik tekliflere rağmen Yamal'ı satmayacağını duyurdu.", tag: "Transfer" },
+    { id: 3, title: "Bruno Fernandes Ayrılık Yolunda", desc: "Manchester United kaptanının sezon sonu takımdan ayrılması bekleniyor.", tag: "Söylenti" }
+  ];
 
-        /* SİDEBAR - MULTI LEAGUE SELECTOR */
-        .sidebar { background: var(--dark-glass); border: 1px solid var(--border); border-radius: 20px; padding: 25px; height: fit-content; position: sticky; top: 120px; }
-        .sidebar h4 { color: var(--gold); font-size: 0.7rem; text-transform: uppercase; margin-bottom: 25px; letter-spacing: 2px; }
-        .l-btn { width: 100%; padding: 16px; background: none; border: 1px solid transparent; color: #94a3b8; text-align: left; cursor: pointer; border-radius: 12px; margin-bottom: 10px; transition: 0.3s; font-weight: 600; }
-        .l-btn:hover { background: rgba(197, 160, 89, 0.1); color: var(--gold); }
-        .l-btn.active { background: var(--gold); color: #000; box-shadow: 0 10px 20px rgba(197, 160, 89, 0.2); }
-
-        /* MAIN CONTENT AREA */
-        .data-hub { background: var(--dark-glass); border: 1px solid var(--border); border-radius: 30px; padding: 45px; box-shadow: 0 40px 100px rgba(0,0,0,0.5); }
-        .hub-header h1 { font-size: 3.5rem; margin: 0; font-weight: 900; }
-        .hub-header p { opacity: 0.5; font-size: 1.1rem; margin-top: 10px; }
-
-        /* DEVASA VERİ TABLOLARI */
-        .table-wrapper { margin-top: 40px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); }
-        table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.01); }
-        th { background: rgba(197, 160, 89, 0.05); color: var(--gold); padding: 20px; text-align: left; font-size: 0.7rem; text-transform: uppercase; }
-        td { padding: 18px 20px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 1rem; }
-        .rank { font-weight: 900; color: var(--gold); width: 40px; }
-        .form-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
-        .win { background: var(--neon-green); box-shadow: 0 0 10px var(--neon-green); }
-
-        /* FİKSTÜR MERKEZİ */
-        .fixture-grid { display: grid; gap: 15px; margin-top: 30px; }
-        .fixture-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 20px; border-radius: 15px; display: flex; justify-content: space-between; font-weight: 600; }
-
-        /* TRANSFER VE RADAR */
-        .radar-card { background: var(--dark-glass); border: 1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 30px; }
-        .radar-card h5 { color: var(--gold); text-transform: uppercase; font-size: 0.75rem; margin-top: 0; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
-        .t-news { padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .t-news b { font-size: 0.9rem; color: #fff; }
-        .t-news p { font-size: 0.75rem; color: #64748b; margin: 5px 0; }
-
-        /* YORUM VE ETKİLEŞİM */
-        .interaction { grid-column: span 3; background: var(--dark-glass); border: 1px solid var(--border); border-radius: 30px; padding: 50px; margin-top: 50px; }
-        .c-input { width: 100%; background: #000; border: 1px solid var(--border); border-radius: 15px; padding: 20px; color: #fff; font-family: inherit; margin-top: 20px; }
-        .c-btn { background: var(--gold); color: #000; border: none; padding: 20px 50px; border-radius: 12px; font-weight: 900; cursor: pointer; margin-top: 20px; transition: 0.3s; }
-
-        /* KURUMSAL DEV METİNLER (SAYFAYI UZATAN KISIM) */
-        .legal-section { grid-column: span 3; padding: 100px 0; border-top: 1px solid var(--border); }
-        .legal-box { font-size: 0.9rem; color: #64748b; line-height: 2; }
-        .legal-box h2 { color: var(--gold); margin-top: 50px; }
-
-        footer { padding: 100px 5%; text-align: center; border-top: 1px solid var(--border); background: #010409; }
-    </style>
-</head>
-<body onload="initPortal()">
-
-<div id="h-notif">YUSALİMEH GLOBAL STRATEJİK VERİ AKIŞI AKTİF | G-EVTMTK2FLS</div>
-
-<nav>
-    <div class="brand">YUSALİMEH<span>GLOBAL</span></div>
-    <div class="nav-links">
-        <a href="#hub">Veri Merkezi</a>
-        <a href="#fixtures">Fikstür</a>
-        <a href="#legal">Kurumsal Mevzuat</a>
-        <a href="https://github.com/KullaniciAdin">GitHub</a>
-    </div>
-</nav>
-
-<div class="portal-container">
-    <div class="sidebar">
-        <h4>Küresel Ligler</h4>
-        <button class="l-btn active">Premier League</button>
-        <button class="l-btn">Trendyol Süper Lig</button>
-        <button class="l-btn">La Liga EA Sports</button>
-        <button class="l-btn">Serie A Enilive</button>
-        <button class="l-btn">Bundesliga</button>
-        <button class="l-btn">Ligue 1 McDonald's</button>
-        <button class="l-btn">Eredivisie</button>
-        <button class="l-btn">Liga Portugal</button>
-        <button class="l-btn">MLS Soccer</button>
-        <button class="l-btn">Saudi Pro League</button>
-    </div>
-
-    <div class="data-hub" id="hub">
-        <div class="hub-header">
-            <h1>Premier League</h1>
-            <p>Sezon: 2025/2026 | Güncelleme: 10 Mayıs 2026</p>
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-100 p-6 font-sans">
+      {/* Site İçinde YUSALİMEH GLOBAL Görünmeye Devam Eder */}
+      <header className="flex justify-between items-center pb-6 border-b border-slate-800">
+        <div>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
+            YUSALİMEH GLOBAL | Spor & Transfer İstihbaratı
+          </h1>
+          <p className="text-sm text-slate-400">2026/27 Küresel Canlı Veri Akışı</p>
         </div>
+        <div className="flex items-center gap-2 bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full text-xs font-mono">
+          <Zap size={14} className="animate-pulse" /> CANLI VERİ
+        </div>
+      </header>
 
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr><th>Sıra</th><th>Kulüp</th><th>O</th><th>G</th><th>B</th><th>M</th><th>AV</th><th>P</th><th>Form</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td class="rank">1</td><td><b>Arsenal</b></td><td>35</td><td>23</td><td>7</td><td>5</td><td>+41</td><td><b>76</b></td><td><span class="form-dot win"></span><span class="form-dot win"></span><span class="form-dot win"></span></td></tr>
-                    <tr><td class="rank">2</td><td><b>Manchester City</b></td><td>35</td><td>22</td><td>8</td><td>5</td><td>+48</td><td><b>74</b></td><td><span class="form-dot win"></span><span class="form-dot win"></span><span class="form-dot"></span></td></tr>
-                    </tbody>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+        {/* Puan Durumu Paneli */}
+        <div className="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg font-semibold flex items-center gap-2">
+              <Trophy className="text-yellow-500" size={20} /> Lig Puan Durumu
+            </h2>
+            <div className="flex bg-slate-800 p-1 rounded-lg text-xs">
+              <button 
+                onClick={() => setActiveTab('superlig')}
+                className={`px-3 py-1 rounded-md transition ${activeTab === 'superlig' ? 'bg-blue-600 text-white' : 'text-slate-400'}`}>
+                Süper Lig
+              </button>
+              <button 
+                onClick={() => setActiveTab('epl')}
+                className={`px-3 py-1 rounded-md transition ${activeTab === 'epl' ? 'bg-blue-600 text-white' : 'text-slate-400'}`}>
+                Premier League
+              </button>
+            </div>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-slate-800/50 text-slate-400">
+                <tr>
+                  <th className="p-2">#</th>
+                  <th className="p-2">Takım</th>
+                  <th className="p-2 text-center">O</th>
+                  <th className="p-2 text-center">G</th>
+                  <th className="p-2 text-center">B</th>
+                  <th className="p-2 text-center">M</th>
+                  <th className="p-2 text-center">AV</th>
+                  <th className="p-2 text-center font-bold">P</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-800">
+                {(activeTab === 'superlig' ? superLigData : premierLeagueData).map((row) => (
+                  <tr key={row.rank} className="hover:bg-slate-800/30 transition">
+                    <td className="p-2 font-mono text-slate-400">{row.rank}</td>
+                    <td className="p-2 font-semibold text-slate-200">{row.team}</td>
+                    <td className="p-2 text-center">{row.p}</td>
+                    <td className="p-2 text-center text-emerald-400">{row.w}</td>
+                    <td className="p-2 text-center text-slate-400">{row.d}</td>
+                    <td className="p-2 text-center text-rose-400">{row.l}</td>
+                    <td className="p-2 text-center font-mono text-xs">{row.gd}</td>
+                    <td className="p-2 text-center font-bold text-blue-400">{row.pts}</td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
+          </div>
         </div>
 
-        <h2 style="margin-top: 60px;" id="fixtures">Stratejik Fikstür</h2>
-        <div class="fixture-grid">
-            <div class="fixture-item"><span>Arsenal</span> <span>vs</span> <span>West Ham</span> <span>10.05 / 18:00</span></div>
-            <div class="fixture-item"><span>Man City</span> <span>vs</span> <span>Wolves</span> <span>10.05 / 20:30</span></div>
-            <div class="fixture-item"><span>Liverpool</span> <span>vs</span> <span>Aston Villa</span> <span>11.05 / 15:30</span></div>
-            </div>
-    </div>
-
-    <div class="radar">
-        <div class="radar-card">
-            <h5>TRANSFER RADARI</h5>
-            <div class="t-news"><b>Kylian Mbappé</b><p>PSG ➔ Real Madrid (Onaylandı)</p></div>
-            <div class="t-news"><b>Victor Osimhen</b><p>Napoli ➔ Chelsea (Görüşmede)</p></div>
-            <div class="t-news"><b>Arda Güler</b><p>Real Madrid ➔ Bayer Leverkusen (Kiralık-Dedikodu)</p></div>
+        {/* Transfer & Gündem Paneli */}
+        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h2 className="text-lg font-semibold flex items-center gap-2 mb-4">
+            <Newspaper className="text-blue-400" size={20} /> Son Transfer & Gündem
+          </h2>
+          <div className="space-y-4">
+            {transferNews.map((news) => (
+              <div key={news.id} className="p-3 bg-slate-800/40 border border-slate-800 rounded-lg">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-xs px-2 py-0.5 bg-blue-500/10 text-blue-400 rounded-full font-medium">
+                    {news.tag}
+                  </span>
+                </div>
+                <h3 className="font-semibold text-sm text-slate-200">{news.title}</h3>
+                <p className="text-xs text-slate-400 mt-1">{news.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
-
-        <div class="radar-card">
-            <h5>ANALİTİK BİLGİ</h5>
-            <p style="font-size: 0.8rem; line-height: 1.6;">Konya Veri Merkezi, Süper Lig takımlarının pas isabet oranlarını kuantum algoritmalarıyla yeniden hesapladı.</p>
-        </div>
+      </div>
     </div>
+  );
+};
 
-    <div class="interaction">
-        <h2>Yönetim Kurulu Raporlama Paneli</h2>
-        <p>Veri merkezimiz hakkındaki görüşlerinizi veya eklenmesini istediğiniz stratejik bilgileri buraya yazın.</p>
-        <textarea class="c-input" rows="6" placeholder="Raporunuzu detaylandırın..."></textarea>
-        <button class="c-btn">RAPORU SİSTEME GÖNDER</button>
-    </div>
-
-    <div class="legal-section" id="legal">
-        <div class="legal-box">
-            <h2>1. Veri Güvenliği ve Gizlilik Sözleşmesi (KVKK)</h2>
-            <p>Yusalimeh Global Holding, 6698 Sayılı Kişisel Verilerin Korunması Kanunu uyarınca kullanıcı verilerini en yüksek analitik standartlarda işlemektedir. Google Analytics 4 (GA4) entegrasyonumuz, kullanıcı hareketlerini tamamen anonimleştirerek raporlamaktadır...</p>
-            <p>Bu sözleşme, Konya ve Erzurum merkezli veri sunucularımızın güvenliğini kapsar. Her bir tıklama, holdingimizin stratejik planlama departmanı tarafından incelenmektedir...</p>
-            
-            <h2>2. Kullanım Koşulları ve Hukuki Şartlar</h2>
-            <p>Bu portalda paylaşılan spor verileri, Avrupa'nın önde gelen veri sağlayıcılarından alınmaktadır. Arsenal'ın 76 puanlık liderliği ve Galatasaray'ın 87 puanlık şampiyonluk yolculuğu, Yusuf Eymen tarafından manuel ve dijital olarak doğrulanmıştır...</p>
-            
-            <h2>3. Çerez ve İzleme Politikası</h2>
-            <p>G-EVTMTK2FLS ölçüm kimliği ile sitemizdeki her kaydırma (scroll) hareketi, bekleme süresi ve etkileşim oranı takip edilmektedir. Bu, holdingimizin dijital zekasını geliştirmek adına zorunlu bir süreçtir...</p>
-            
-            </div>
-    </div>
-</div>
-
-<footer>
-    <div class="brand">YUSALİMEH<span>GLOBAL</span></div>
-    <p>Konya / Türkiye Global Merkezi | Stratejik Analiz Departmanı</p>
-    <p style="opacity: 0.3; font-size: 0.7rem;">© 2026 Yusuf Eymen. Tüm Hakları Stratejik Olarak Koruma Altındadır.</p>
-</footer>
-
-<script>
-    function initPortal() {
-        const notif = document.getElementById('h-notif');
-        setTimeout(() => { notif.style.top = '0'; }, 1000);
-        setTimeout(() => { notif.style.top = '-100px'; }, 7000); 
-    }
-</script>
-
-</body>
-</html>
+export default FootballHub;
